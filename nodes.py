@@ -1,80 +1,8 @@
 import meshes as mh
 from gameobject import GameObject
 from plane3d import Plane3D
-from character import Character
 from shapes3d import *
 
-def createTail(pipeline):
-    tailMesh = mh.createTailMesh()
-    tailGPU = createGPUShape(pipeline, mh.toShape(tailMesh, color=(255/255, 128/255, 0.0)))
-    spikeGPU = createGPUShape(pipeline, mh.toShape(tailMesh, color = (220/255, 220/255, 220/225)))
-
-
-    tail4 = GameObject("tail4", pipeline)
-    tail4.setModel(tailGPU)
-    tail4.setPosition([0, 0, 1])
-
-    spike4 = GameObject("spike4", pipeline)
-    spike4.setModel(spikeGPU)
-    spike4.uniformScale(0.3)
-    spike4.setRotation([0, 90, 0])
-    spike4.setPosition([0.7, 0, 0.5])
-
-    joint4 = GameObject("joint4", pipeline)
-    joint4.addChilds([tail4, spike4]) 
-    joint4.setPosition([0, 0, 0.5])
-    joint4. setRotation([0, 15, 0])
-
-    tail3 = GameObject("tail3", pipeline)
-    tail3.setModel(tailGPU)
-    tail3.setPosition([0, 0, 1])
-
-    spike3 = GameObject("spike3", pipeline)
-    spike3.setModel(spikeGPU)
-    spike3.uniformScale(0.3)
-    spike3.setRotation([0, 90, 0])
-    spike3.setPosition([0.7, 0, 0.5])
-
-    joint3 = GameObject("joint3", pipeline)
-    joint3.addChilds([tail3, spike3, joint4]) 
-    joint3.setPosition([0, 0, 0.5])
-    joint3. setRotation([0, 15, 0])
-    
-    tail2 = GameObject("tail2", pipeline)
-    tail2.setModel(tailGPU)
-    tail2.setPosition([0, 0, 1])
-
-    spike2 = GameObject("spike2", pipeline)
-    spike2.setModel(spikeGPU)
-    spike2.uniformScale(0.3)
-    spike2.setRotation([0, 90, 0])
-    spike2.setPosition([0.7, 0, 0.5])
-
-    joint2 = GameObject("joint2", pipeline)
-    joint2.addChilds([tail2, spike2, joint3])
-    joint2.setPosition([0, 0, 0.5])
-    joint2.setRotation([0, 15, 0])
-
-    tail1 = GameObject("tail1", pipeline)
-    tail1.setModel(tailGPU)
-    tail1.setPosition([0, 0, 1])
-
-    spike1 = GameObject("spike1", pipeline)
-    spike1.setModel(spikeGPU)
-    spike1.uniformScale(0.3)
-    spike1.setRotation([0, 90, 0])
-    spike1.setPosition([0.7, 0, 0.5])
-
-    joint1 = GameObject("joint1", pipeline)
-    joint1.addChilds([tail1, spike1, joint2])
-    joint1.setPosition([-1.4,0,0])
-    joint1.setRotation([0,-90,0])
-
-    tail = GameObject("tail", pipeline)
-    tail.addChilds([joint1])
-    tail.uniformScale(0.35)
-
-    return tail
 
 # crea un plano con textura
 def createPlane(pipeline, nombre, texture_name):
@@ -92,8 +20,33 @@ def create3dPlane(pipeline, nombre, texture_name):
 
     return plane
 
+def createBillardBall(tex_pipeline, number):
+    number = str(number)
+    ballShape = createNormalBall(30)
+    ball = GameObject("bola"+ number, tex_pipeline)
+    path = "assets/" + "b" + number + ".png"
+    ball.setModel(createTextureGPUShape(ballShape, tex_pipeline, path), True)
+    
+    return ball
+
+def createBalls(tex_pipeline):
+    balls = []
+    for i in range(14):
+        ball = createBillardBall(tex_pipeline, (i+1))
+        ball.setPosition([i/2,0,0])
+        ball.setScale([0.52, 0.52, 0.52])
+        balls.append(ball)
+    cue = createBillardBall(tex_pipeline, "cue")
+    cue.setScale([0.52, 0.52, 0.52])
+    balls.append(cue)
+
+    ballSet = GameObject("ball set", tex_pipeline)
+    ballSet.addChilds(balls)
+
+    return ballSet
+
 # crea a Maru
-def createCharacter(pipeline, tex_pipeline, controller):
+"""def createCharacter(pipeline, tex_pipeline, controller):
     bodyMesh = mh.createBodyMesh()
     legModel = createGPUShape(pipeline, createLegShape())
     armModel = createGPUShape(pipeline, createArmShape())
@@ -160,9 +113,9 @@ def createCharacter(pipeline, tex_pipeline, controller):
     character.setTreesMaterial((0.3, 0.3, 0.3), (0.4, 0.4, 0.4), (0.01, 0.01, 0.01), 10) # Un material menos metalico 
     faceObject.setMaterial((0.7, 0.7, 0.7), (0.4, 0.4, 0.4), (0.01, 0.00, 0.00), 10) # Para que la carita siempre sea bien visible :)
 
-    return character
+    return character"""
 
-def createScene(pipeline, tex_pipeline):
+"""def createScene(pipeline, tex_pipeline):
     # Se crea la escena base
 
     # Se crean las shapes en GPU
@@ -255,4 +208,4 @@ def createScene(pipeline, tex_pipeline):
     trScene = GameObject("trScene", pipeline)
     trScene.addChilds([scene, arboles, terreno, nube1, nube2, publico])
 
-    return trScene        
+    return trScene """       

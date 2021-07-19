@@ -22,10 +22,10 @@ class GameObject:
 		self.transform = tr.matmul([tr.translate(0, 0, 0), tr.scale(0.1, 0.1, 0.1)]) # transformacion
 
 		#Material
-		self.Ka = (0.3, 0.3, 0.3) # componente ambiental
+		self.Ka = (0.8, 0.8, 0.8) # componente ambiental
 		self.Kd = (0.5, 0.5, 0.5) # componente difusa
-		self.Ks = (0.1, 0.1, 0.1) # componente especular
-		self.shininess = 50       # (int) brillo 
+		self.Ks = (0.001, 0.001, 0.001) # componente especular
+		self.shininess = 1       # (int) brillo 
 
 
 	

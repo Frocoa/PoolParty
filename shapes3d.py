@@ -24,6 +24,45 @@ def createTextureGPUShape(shape, pipeline, path):
         path, GL_REPEAT, GL_REPEAT, GL_NEAREST, GL_NEAREST)
     return gpuShape
 
+def createNormalBall(N):
+    vertices = []
+    indices = []
+    dTheta = 2 * np.pi /N
+    dPhi = 2 * np.pi / N
+    rho = 0.5
+    c = 0
+
+    for i in range (int(N/2)):
+        theta = i * dTheta
+        theta1 = (i + 1) * dTheta
+
+        for j in range(N):
+            phi = j * dPhi
+            phi1 = (j+1) * dPhi
+
+            # vertices
+            v0 = [rho * np.sin(theta) * np.cos(phi), rho * np.sin(theta) * np.sin(phi) , rho * np.cos(theta)]
+            v1 = [rho * np.sin(theta1) * np.cos(phi), rho * np.sin(theta1) * np.sin(phi) , rho * np.cos(theta1)]
+            v2 = [rho * np.sin(theta1) * np.cos(phi1), rho * np.sin(theta1) * np.sin(phi1) , rho * np.cos(theta1)]
+            v3 = [rho * np.sin(theta) * np.cos(phi1), rho * np.sin(theta) * np.sin(phi1) , rho * np.cos(theta)]
+
+            # normales
+            n0 = [np.sin(theta) * np.cos(phi), np.sin(theta) * np.sin(phi), np.cos(theta)]
+            n1 = [np.sin(theta1) * np.cos(phi), np.sin(theta1) * np.sin(phi), np.cos(theta1)]
+            n2 = [np.sin(theta1) * np.cos(phi1), np.sin(theta1) * np.sin(phi1), np.cos(theta1)]
+            n3 = [np.sin(theta) * np.cos(phi1), np.sin(theta) * np.sin(phi1), np.cos(theta)]
+
+            # los quads
+            vertices += [v0[0], v0[1], v0[2], phi/(2*np.pi), theta/(np.pi), n0[0], n0[1], n0[2]]
+            vertices += [v1[0], v1[1], v1[2], phi/(2*np.pi), theta1/(np.pi), n1[0], n1[1], n1[2]]
+            vertices += [v2[0], v2[1], v2[2], phi1/(2*np.pi), theta1/(np.pi), n2[0], n2[1], n2[2]]
+            vertices += [v3[0], v3[1], v3[2], phi1/(2*np.pi), theta/(np.pi), n3[0], n3[1], n3[2]]
+            indices += [c + 0, c + 1, c + 2]
+            indices += [c + 2, c + 3, c + 0]
+            c += 4
+
+    return bs.Shape(vertices, indices)
+
 def createTextureNormalPlane():  
     # Defining locations and texture coordinates for each vertex of the shape    
     vertices = [
