@@ -77,6 +77,7 @@ if __name__ == "__main__":
     #Maru = nd.createCharacter(celPipeline, celTexPipeline, controller)
     #scene = nd.createScene(celPipeline, celTexPipeline)
     bolas = nd.createBalls(phongTex)
+    mesa = nd.createTable(phongTex)
 
     # Application loop
     while not glfw.window_should_close(window):
@@ -124,7 +125,7 @@ if __name__ == "__main__":
         #scene.update(delta, camera, lights)
         #Maru.update(delta, camera, lights)
         bolas.update(delta, camera, lights)
-        bolas.translate([0,0,0])
+        mesa.update(delta, camera, lights)
         # Once the drawing is rendered, buffers are swap so an uncomplete drawing is never seen.
         glfw.swap_buffers(window)
 

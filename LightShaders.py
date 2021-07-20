@@ -1289,7 +1289,7 @@ class SimpleTexturePhongShaderProgram:
                 vec4 fragOriginalColor = texture(samplerTex, fragTexCoords);
 
                 vec3 result = (ambient + ((diffuse + specular) / attenuation)) * fragOriginalColor.rgb;
-                fragColor = vec4(result, 1.0);
+                fragColor = vec4(result, 0);
             }
             """
 
