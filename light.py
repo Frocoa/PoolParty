@@ -5,8 +5,8 @@ class Light():
 
 	def __init__(self, controller):
 
-		self.position = [30, 30, 30] # posicion de la luz
-		self.Ld = [0.8, 0.8, 0.8] # componente difusa
+		self.position = [2, 0, 1] # posicion de la luz
+		self.Ld = [0.3, 0.3, 0.3] # componente difusa
 		self.Ls = [0.01, 0.01, 0.01] # componente especular
 		self.N =  600 # cantidad de puntos en las curvas
 		self.slowCount = 0 # control del efecto de slow motion
@@ -36,6 +36,5 @@ class Light():
 
 	# update
 	def update(self, delta):
-		self.position[2] += 0.1
 		self.index += 1
 

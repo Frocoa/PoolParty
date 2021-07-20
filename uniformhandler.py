@@ -14,7 +14,7 @@ def setLightUniforms(pipeline, lights):
         glUniform3f(glGetUniformLocation(pipeline.shaderProgram, "Ls"),\
         *light1.Ls) # Componente especular de cada luz
 
-        glUniform3f(glGetUniformLocation(pipeline.shaderProgram, "lightPos"),\
+        glUniform3f(glGetUniformLocation(pipeline.shaderProgram, "lightPosition"),\
         *light1.position) # Componente especular de cada luz
 
         glUniform1f(glGetUniformLocation(pipeline.shaderProgram, "constantAttenuation"), 0.01)
