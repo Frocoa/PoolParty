@@ -6,7 +6,7 @@ import grafica.performance_monitor as pm
 import LightShaders as ls
 import grafica.transformations as tr
 import nodes as nd
-from controller import Controller, on_key
+from controller import Controller, on_key, cursor_pos_callback
 from light import Light
 from camera import Camera
 from gameobject import GameObject
@@ -33,9 +33,17 @@ if __name__ == "__main__":
 
     glfw.make_context_current(window)
 
+
     controller = Controller()
     def on_key_wrapper(window, key, scancode, action, mods):
         on_key(controller, window, key, scancode, action, mods)
+
+    def cursor_pos_callback_wrapper(window, x, y):
+        cursor_pos_callback(controller, window, x, y)
+
+
+    # Se conecta la funcion de callback "cursos_pos_callback_wrapper" para ver la pos del mouse
+    glfw.set_cursor_pos_callback(window, cursor_pos_callback_wrapper)
 
     # Connecting the callback function 'on_key_wrapper' to handle keyboard events
     glfw.set_key_callback(window, on_key_wrapper)

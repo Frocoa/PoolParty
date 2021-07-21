@@ -12,41 +12,63 @@ class Controller:
         self.is_s_pressed = False
         self.is_a_pressed = False
         self.is_d_pressed = False
+        self.is_q_pressed = False
+        self.is_e_pressed = False
         self.is_tab_pressed = False
         self.manual = True
         self.slow = False
         self.is_3_pressed = False
+        self.theta = 0
+        self.mousePos = (0, 0)
+
+# Metodo para leer la posicion del mouse
+def cursor_pos_callback(self, window, x, y):
+    self.mousePos = (x,y)
 
 # Metodo para leer el input del teclado
 def on_key(self, window, key, scancode, action, mods):
 
-    # Caso de detectar la tecla [UP], actualiza estado de variable
+    # Caso de detectar la tecla [W], actualiza estado de variable
     if key == glfw.KEY_W:
         if action == glfw.PRESS:
             self.is_w_pressed = True
         elif action == glfw.RELEASE:
             self.is_w_pressed = False
 
-    # Caso de detectar la tecla [DOWN], actualiza estado de variable
+    # Caso de detectar la tecla [S], actualiza estado de variable
     if key == glfw.KEY_S:
         if action == glfw.PRESS:
             self.is_s_pressed = True
         elif action == glfw.RELEASE:
             self.is_s_pressed = False
 
-    # Caso de detectar la tecla [RIGHT], actualiza estado de variable
+    # Caso de detectar la tecla [D], actualiza estado de variable
     if key == glfw.KEY_D:
         if action == glfw.PRESS:
             self.is_d_pressed = True
         elif action == glfw.RELEASE:
             self.is_d_pressed = False
 
-    # Caso de detectar la tecla [LEFT], actualiza estado de variable
+    # Caso de detectar la tecla [A], actualiza estado de variable
     if key == glfw.KEY_A:
         if action == glfw.PRESS:
             self.is_a_pressed = True
         elif action == glfw.RELEASE:
             self.is_a_pressed = False
+
+    # Caso de detectar la tecla [Q], actualiza estado de variable
+    if key == glfw.KEY_Q:
+        if action == glfw.PRESS:
+            self.is_q_pressed = True
+        elif action == glfw.RELEASE:
+            self.is_q_pressed = False
+
+    # Caso de detectar la tecla [E], actualiza estado de variable
+    if key == glfw.KEY_A:
+        if action == glfw.PRESS:
+            self.is_e_pressed = True
+        elif action == glfw.RELEASE:
+            self.is_e_pressed = False
     
     # Caso de detectar la barra espaciadora, se cambia el metodo de dibujo
     if key == glfw.KEY_SPACE:
