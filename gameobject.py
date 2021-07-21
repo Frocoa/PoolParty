@@ -27,7 +27,6 @@ class GameObject:
 		self.Ks = (0.001, 0.001, 0.001) # componente especular
 		self.shininess = 1       # (int) brillo 
 
-
 	
 	# cambia el pipeline
 	def changePipeline(self, pipeline):

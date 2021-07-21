@@ -1,6 +1,6 @@
 import meshes as mh
 from gameobject import GameObject
-from BillardBalls import Bball
+from BilliardBalls import Bball
 from plane3d import Plane3D
 from shapes3d import *
 
@@ -21,10 +21,10 @@ def create3dPlane(pipeline, nombre, texture_name):
 
     return plane
 
-def createBillardBall(tex_pipeline, number):
+def createBilliardBall(tex_pipeline, number, posXY = [0, 0]):
     number = str(number)
     ballShape = createNormalBall(30)
-    ball = Bball("bola"+ number, tex_pipeline)
+    ball = Bball("bola"+ number, tex_pipeline, posXY)
     ball.setRotation([0, 90, 0])
     path = "assets/" + "b" + number + ".png"
     ball.setModel(createTextureGPUShape(ballShape, tex_pipeline, path), True)
@@ -33,84 +33,69 @@ def createBillardBall(tex_pipeline, number):
 
 def createBalls(tex_pipeline):
     balls = []
-    b1 = createBillardBall(tex_pipeline, 1)
+    b1 = createBilliardBall(tex_pipeline, 1)
     b1.setScale([0.52, 0.52, 0.52])
     balls.append(b1)
 
-    b2 = createBillardBall(tex_pipeline, 2)
+    b2 = createBilliardBall(tex_pipeline, 2, [-0.52, -0.26])
     b2.setScale([0.52, 0.52, 0.52])
     balls.append(b2)
-    b2.setPosition([-0.52, -0.26, 0])
 
-    b3 = createBillardBall(tex_pipeline, 3)
+    b3 = createBilliardBall(tex_pipeline, 3, [-1.04, -0.52])
     b3.setScale([0.52, 0.52, 0.52])
     balls.append(b3)
-    b3.setPosition([-1.04, -0.52, 0])
 
-    b4 = createBillardBall(tex_pipeline, 4)
+    b4 = createBilliardBall(tex_pipeline, 4, [-1.56, -0.78])
     b4.setScale([0.52, 0.52, 0.52])
     balls.append(b4)
-    b4.setPosition([-1.56, -0.78, 0])
 
-    b5 = createBillardBall(tex_pipeline, 5)
+    b5 = createBilliardBall(tex_pipeline, 5, [-2.08, 1.04])
     b5.setScale([0.52, 0.52, 0.52])
     balls.append(b5)
-    b5.setPosition([-2.08, 1.04, 0])
 
-    b6 = createBillardBall(tex_pipeline, 6)
+    b6 = createBilliardBall(tex_pipeline, 6, [-2.08, -0.52])
     b6.setScale([0.52, 0.52, 0.52])
     balls.append(b6)
-    b6.setPosition([-2.08, -0.52, 0])
 
-    b7 = createBillardBall(tex_pipeline, 7)
+    b7 = createBilliardBall(tex_pipeline, 7, [-1.56, 0.26])
     b7.setScale([0.52, 0.52, 0.52])
     balls.append(b7)
-    b7.setPosition([-1.56, 0.26, 0])
 
-    b8 = createBillardBall(tex_pipeline, 8)
+    b8 = createBilliardBall(tex_pipeline, 8, [-1.04, 0])
     b8.setScale([0.52, 0.52, 0.52])
     balls.append(b8)
-    b8.setPosition([-1.04, 0, 0])
 
-    b9 = createBillardBall(tex_pipeline, 9)
+    b9 = createBilliardBall(tex_pipeline, 9, [-0.52, 0.26])
     b9.setScale([0.52, 0.52, 0.52])
-    b9.setPosition([-0.52, 0.26, 0])
     balls.append(b9)
 
-    b10 = createBillardBall(tex_pipeline, 10)
+    b10 = createBilliardBall(tex_pipeline, 10, [-1.04, 0.52])
     b10.setScale([0.52, 0.52, 0.52])
     balls.append(b10)
-    b10.setPosition([-1.04, 0.52, 0])
 
-    b11 = createBillardBall(tex_pipeline, 11)
+    b11 = createBilliardBall(tex_pipeline, 11, [-1.56, 0.78])
     b11.setScale([0.52, 0.52, 0.52])
     balls.append(b11)
-    b11.setPosition([-1.56, 0.78, 0])
 
-    b12 = createBillardBall(tex_pipeline, 12)
+    b12 = createBilliardBall(tex_pipeline, 12, [-2.08, -1.04])
     b12.setScale([0.52, 0.52, 0.52])
     balls.append(b12)
-    b12.setPosition([-2.08, -1.04, 0])
 
-    b13 = createBillardBall(tex_pipeline, 13)
+    b13 = createBilliardBall(tex_pipeline, 13, [-2.08, 0.52])
     b13.setScale([0.52, 0.52, 0.52])
     balls.append(b13)
-    b13.setPosition([-2.08, 0.52, 0])
 
-    b14 = createBillardBall(tex_pipeline, 14)
+    b14 = createBilliardBall(tex_pipeline, 14, [-1.56, -0.26])
     b14.setScale([0.52, 0.52, 0.52])
     balls.append(b14)
-    b14.setPosition([-1.56, -0.26, 0])
 
-    b15 = createBillardBall(tex_pipeline, 15)
+    b15 = createBilliardBall(tex_pipeline, 15, [-2.08, 0])
     b15.setScale([0.52, 0.52, 0.52])
     balls.append(b15)
-    b15.setPosition([-2.08, 0, 0])
 
-    cue = createBillardBall(tex_pipeline, "cue")
+    cue = createBilliardBall(tex_pipeline, "cue", [4, 0])
     cue.setScale([0.52, 0.52, 0.52])
     balls.append(cue)
-    cue.setPosition([4, 0, 0])
 
     ballSet = GameObject("ball set", tex_pipeline)
     ballSet.addChilds(balls)
