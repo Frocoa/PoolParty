@@ -111,7 +111,7 @@ if __name__ == "__main__":
 
         # Se cambia entre phong y cel
         if (controller.is_tab_pressed):
-            bolas.childs[0].addSpeed([0.3, 0.1])
+            bolas.childs[0].addSpeed([0.8, 0.8])
         #else:
         #    Maru.changeTreesPipeline(cel, celTex)
         #    scene.changeTreesPipeline(cel, celTex)

@@ -31,6 +31,6 @@ def setMaterialUniforms(pipeline, Ka, Kd, Ks, shininess):
 
 # Uniforms de la camara
 def setCameraUniforms(pipeline, camera, projection, viewMatrix):
-        glUniform3f(glGetUniformLocation(pipeline.shaderProgram, "viewPosition"), camera.eye[0], camera.eye[1], camera.eye[2])
+        glUniform3f(glGetUniformLocation(pipeline.shaderProgram, "viewPosition"), camera.position[0], camera.position[1], camera.position[2])
         glUniformMatrix4fv(glGetUniformLocation(pipeline.shaderProgram, "projection"), 1, GL_TRUE, projection)
         glUniformMatrix4fv(glGetUniformLocation(pipeline.shaderProgram, "view"), 1, GL_TRUE, viewMatrix)                

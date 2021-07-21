@@ -8,10 +8,10 @@ class Controller:
         self.showAxis = True
 
         # Variables para controlar la camara
-        self.is_up_pressed = False
-        self.is_down_pressed = False
-        self.is_left_pressed = False
-        self.is_right_pressed = False
+        self.is_w_pressed = False
+        self.is_s_pressed = False
+        self.is_a_pressed = False
+        self.is_d_pressed = False
         self.is_tab_pressed = False
         self.manual = True
         self.slow = False
@@ -21,32 +21,32 @@ class Controller:
 def on_key(self, window, key, scancode, action, mods):
 
     # Caso de detectar la tecla [UP], actualiza estado de variable
-    if key == glfw.KEY_UP:
+    if key == glfw.KEY_W:
         if action == glfw.PRESS:
-            self.is_up_pressed = True
+            self.is_w_pressed = True
         elif action == glfw.RELEASE:
-            self.is_up_pressed = False
+            self.is_w_pressed = False
 
     # Caso de detectar la tecla [DOWN], actualiza estado de variable
-    if key == glfw.KEY_DOWN:
+    if key == glfw.KEY_S:
         if action == glfw.PRESS:
-            self.is_down_pressed = True
+            self.is_s_pressed = True
         elif action == glfw.RELEASE:
-            self.is_down_pressed = False
+            self.is_s_pressed = False
 
     # Caso de detectar la tecla [RIGHT], actualiza estado de variable
-    if key == glfw.KEY_RIGHT:
+    if key == glfw.KEY_D:
         if action == glfw.PRESS:
-            self.is_right_pressed = True
+            self.is_d_pressed = True
         elif action == glfw.RELEASE:
-            self.is_right_pressed = False
+            self.is_d_pressed = False
 
     # Caso de detectar la tecla [LEFT], actualiza estado de variable
-    if key == glfw.KEY_LEFT:
+    if key == glfw.KEY_A:
         if action == glfw.PRESS:
-            self.is_left_pressed = True
+            self.is_a_pressed = True
         elif action == glfw.RELEASE:
-            self.is_left_pressed = False
+            self.is_a_pressed = False
     
     # Caso de detectar la barra espaciadora, se cambia el metodo de dibujo
     if key == glfw.KEY_SPACE:

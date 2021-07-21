@@ -100,6 +100,12 @@ def createBalls(tex_pipeline):
     ballSet = GameObject("ball set", tex_pipeline)
     ballSet.addChilds(balls)
 
+    for ball in balls:
+        auxList = balls[:]
+        auxList.remove(ball)
+        ball.collBalls = auxList
+
+
     return ballSet
 
 def createTable(tex_pipeline):

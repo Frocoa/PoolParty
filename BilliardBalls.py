@@ -13,6 +13,8 @@ class Bball(GameObject):
 		self.gravedad = -9.8
 		self.v0 = [0,0]
 		self.h = 0.1
+		self.radio = 0.26
+		self.collBalls = []
 
 		self.last_speed = self.v0
 		self.last_time = 0
@@ -25,7 +27,7 @@ class Bball(GameObject):
 	def addSpeed(self, speed):
 		self.last_speed = [self.last_speed[0] + speed[0], self.last_speed[1] + speed[1]]
 
-	def collide(self):
+	def wallCollide(self):
 		if abs(self.position[0]) > 10.65:
 			self.last_speed[0] = -self.last_speed[0]
 			self.position[0] = -10.65 * np.sign(self.last_speed[0])
@@ -33,6 +35,23 @@ class Bball(GameObject):
 		if abs(self.position[1]) > 6.05:
 			self.last_speed[1] = -self.last_speed[1]
 			self.position[1] = -6.05 * np.sign(self.last_speed[1])
+
+	def ballCollide(self):
+		for ball in self.collBalls:
+			if np.linalg.norm([ball.position[0] - self.position[0], ball.position[1] - self.position[1]]) < self.radio + ball.radio:
+				self.bounce(ball)
+
+	def bounce(self, col):
+			r1, r2 = np.array(self.position[:2]), np.array(col.position[:2])
+
+			d = np.linalg.norm(r1 - r2) ** 2
+
+			v1 , v2 = np.array(self.last_speed), np.array(col.last_speed)
+			u1 = v1 - np.dot(v1 - v2, r1 - r2) / d * (r1 - r2)
+			u2 = v2 - np.dot(v2 - v1, r2 - r1) / d * (r2 - r1)
+
+			self.last_speed = u1
+			col.last_speed = u2
 
 	def update_transform(self, delta, camera):
 		#self.position[0] = self.last_speed[0]
@@ -52,10 +71,10 @@ class Bball(GameObject):
 		self.position[0] += self.last_speed[0] * delta
 		self.position[1] += self.last_speed[1] * delta
 
-		self.rotate([-self.last_speed[1], self.last_speed[0], 0])
-		self.collide()
+		self.rotate([-self.last_speed[1]/self.radio, self.last_speed[0]/self.radio, 0])
+		self.wallCollide()
 
-
+		self.ballCollide()
 
 		GameObject.update_transform(self, delta, camera)
 
