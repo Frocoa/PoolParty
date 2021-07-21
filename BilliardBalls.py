@@ -11,32 +11,49 @@ class Bball(GameObject):
 		self.position = [posXY[0], posXY[1], 0]
 		self.roce = 0.06
 		self.gravedad = -9.8
-		self.v0 = [4,4]
+		self.v0 = [0,0]
 		self.h = 0.1
 
-		self.last_z = self.v0
+		self.last_speed = self.v0
 		self.last_time = 0
 
 	def f_roce(self, t, z):
 		# Entrega el vector f con todas las funciones del sistema
-		f = np.array([self.gravedad * self.roce, self.gravedad * self.roce])
+		f = np.array([self.gravedad * self.roce * np.sign(self.last_speed[0]), self.gravedad * self.roce * np.sign(self.last_speed[1])])
 		return f
 	
+	def addSpeed(self, speed):
+		self.last_speed = [self.last_speed[0] + speed[0], self.last_speed[1] + speed[1]]
+
+	def collide(self):
+		if abs(self.position[0]) > 10.65:
+			self.last_speed[0] = -self.last_speed[0]
+			self.position[0] = -10.65 * np.sign(self.last_speed[0])
+
+		if abs(self.position[1]) > 6.05:
+			self.last_speed[1] = -self.last_speed[1]
+			self.position[1] = -6.05 * np.sign(self.last_speed[1])
+
 	def update_transform(self, delta, camera):
-		#self.position[0] = self.last_z[0]
+		#self.position[0] = self.last_speed[0]
 		time = self.last_time + self.h
 		self.last_time = time
 
-		next_value = edo.RK4_step(self.f_roce, self.h, time, self.last_z)
-		self.last_z = next_value
+		next_value = edo.RK4_step(self.f_roce, self.h, time, self.last_speed)
+		self.last_speed = next_value
 
-		if np.abs(np.linalg.norm(self.last_z)) <= 0.1:
-			self.last_z = [0, 0]
+		if np.abs(self.last_speed[0]) <= 0.01:
+			self.last_speed[0] = 0
 
-		print(self.last_z)
-		self.position[0] += self.last_z[0] * delta
-		self.position[1] += self.last_z[1] * delta
+		if np.abs(self.last_speed[1]) <= 0.01:
+			self.last_speed[1] = 0
 
+
+		self.position[0] += self.last_speed[0] * delta
+		self.position[1] += self.last_speed[1] * delta
+
+		self.rotate([-self.last_speed[1], self.last_speed[0], 0])
+		self.collide()
 
 
 
