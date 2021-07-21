@@ -67,7 +67,6 @@ class Bball(GameObject):
 		if np.abs(self.last_speed[1]) <= 0.01:
 			self.last_speed[1] = 0
 
-
 		self.position[0] += self.last_speed[0] * delta
 		self.position[1] += self.last_speed[1] * delta
 

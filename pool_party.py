@@ -41,7 +41,6 @@ if __name__ == "__main__":
     def cursor_pos_callback_wrapper(window, x, y):
         cursor_pos_callback(controller, window, x, y)
 
-
     # Se conecta la funcion de callback "cursos_pos_callback_wrapper" para ver la pos del mouse
     glfw.set_cursor_pos_callback(window, cursor_pos_callback_wrapper)
 

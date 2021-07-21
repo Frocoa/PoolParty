@@ -16,7 +16,7 @@ class Controller:
         self.is_e_pressed = False
         self.is_tab_pressed = False
         self.manual = True
-        self.slow = False
+        self.firstPerson = True
         self.is_3_pressed = False
         self.theta = 0
         self.mousePos = (0, 0)
@@ -83,7 +83,7 @@ def on_key(self, window, key, scancode, action, mods):
     # Caso de detectar el numero 1
     if key == glfw.KEY_1:
         if action == glfw.PRESS:
-            self.slow = not self.slow  
+            self.firstPerson = not self.firstPerson  
 
     # Caso de detectar el numero 2
     if key == glfw.KEY_2:
