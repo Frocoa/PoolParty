@@ -38,8 +38,14 @@ class Bball(GameObject):
 
 	def ballCollide(self):
 		for ball in self.collBalls:
-			if np.linalg.norm([ball.position[0] - self.position[0], ball.position[1] - self.position[1]]) < self.radio + ball.radio:
+			magnitud = np.linalg.norm([ball.position[0] - self.position[0], ball.position[1] - self.position[1]])
+			if magnitud < self.radio + ball.radio:
 				self.bounce(ball)
+				d = (self.radio + ball.radio) - magnitud
+				angulo = np.arctan( (ball.position[1] - self.position[1]) / (ball.position[0] - self.position[0]))
+				self.position[0] += d/1.4 * np.cos(angulo)
+				self.position[1] += d/1.4 * np.sin(angulo)
+				
 
 	def bounce(self, col):
 			r1, r2 = np.array(self.position[:2]), np.array(col.position[:2])
@@ -61,10 +67,10 @@ class Bball(GameObject):
 		next_value = edo.RK4_step(self.f_roce, self.h, time, self.last_speed)
 		self.last_speed = next_value
 
-		if np.abs(self.last_speed[0]) <= 0.01:
+		if np.abs(self.last_speed[0]) <= 0.05:
 			self.last_speed[0] = 0
 
-		if np.abs(self.last_speed[1]) <= 0.01:
+		if np.abs(self.last_speed[1]) <= 0.05:
 			self.last_speed[1] = 0
 
 		self.position[0] += self.last_speed[0] * delta
@@ -72,7 +78,6 @@ class Bball(GameObject):
 
 		self.rotate([-self.last_speed[1]/self.radio, self.last_speed[0]/self.radio, 0])
 		self.wallCollide()
-
 		self.ballCollide()
 
 		GameObject.update_transform(self, delta, camera)

@@ -37,11 +37,12 @@ class Camera:
             at_y = self.position[1] + np.sin(self.theta)
             self.eye = self.position
             self.setAt(np.array([at_x, at_y, 2]))
+            self.up = ([0, 0, 1])
 
         if self.controller.firstPerson == False:
             self.eye = np.array([0, 0, 11])
             self.setAt(np.array([0.1, 0, 0]))
-            self.up = ([0,1 ,0])
+            self.up = ([0, 1, 0])
 
         
         # Se genera la matriz de vista
