@@ -9,7 +9,7 @@ class Camera:
     def __init__(self, controller):
         self.controller = controller
         self.at = np.array([0.0, 0.0, -0.5])     # donde mira la camara
-        self.position = np.array([0.0, 0.0, 0.0])     # posicion de la camara
+        self.position = np.array([4.96, 5.0, 3.01324])     # posicion de la camara
         self.up = np.array([0, 0, 1])            # vector up
         self.viewMatrix = None                   # Matriz de vista
         self.projection = None                   # Matriz de proyeccion
@@ -17,6 +17,7 @@ class Camera:
         self.firstPerson = True
         self.index = 1                           # Posicion de las curvas en las que se encuentra la camara
         self.objective = None                    # A que objeto mantiene siempre en la mira
+        self.speed = 0.1
 
         #Trayectorias que puede tomar la cámara
         #se calculan en el constructor para que se haga solo una vez
@@ -39,13 +40,7 @@ class Camera:
     # Actualizar la matriz de vista
     def update_view(self, delta):
 
-        # Se calcula la posición de la camara
-        if self.firstPerson == True:
-            self.position[0] = self.manualCurve[math.floor(self.index*2) % self.N][0]
-            self.position[1] = self.manualCurve[math.floor(self.index*2) % self.N][1]
-            self.position[2] = self.manualCurve[math.floor(self.index*2) % self.N][2]
-
-        else:
+        if self.firstPerson == False:
             self.position[0] = self.autoCurve[math.floor(self.index*1.5) % self.N][0]
             self.position[1] = self.autoCurve[math.floor(self.index*1.5) % self.N][1]
             self.position[2] = self.autoCurve[math.floor(self.index*1.5) % self.N][2]
@@ -64,12 +59,20 @@ class Camera:
     #Funcion que recibe el input para manejar la camara y controlar sus coordenadas
     def update(self, delta):
         if self.firstPerson == True:
-            # Camara se mueve a la derecha  
+            # Camara se mueve a la izquierda  
             if self.controller.is_a_pressed:
-                self.index -= self.N/10 * delta
+                self.position[0] -= self.speed
 
-            # Camara se mueve a la izquierda
+            # Camara se mueve a la derecha
             if self.controller.is_d_pressed:
-                self.index += self.N/10 * delta
+                self.position[0] += self.speed
+
+            # Camara se mueve adelante
+            if self.controller.is_w_pressed:
+                self.position[1] += self.speed
+
+            # Camara se mueve atras
+            if self.controller.is_s_pressed:
+                self.position[1] -= self.speed
 
         self.update_view(delta)    
