@@ -39,12 +39,12 @@ class Bball(GameObject):
 	def ballCollide(self):
 		for ball in self.collBalls:
 			magnitud = np.linalg.norm([ball.position[0] - self.position[0], ball.position[1] - self.position[1]])
-			if magnitud < self.radio + ball.radio:
+			if magnitud < (self.radio + ball.radio):
 				self.bounce(ball)
 				d = (self.radio + ball.radio) - magnitud
 				angulo = np.arctan( (ball.position[1] - self.position[1]) / (ball.position[0] - self.position[0]))
-				self.position[0] += d/1.4 * np.cos(angulo)
-				self.position[1] += d/1.4 * np.sin(angulo)
+				self.position[0] += d/1.35 * np.cos(angulo)
+				self.position[1] += d/1.35 * np.sin(angulo)
 				
 
 	def bounce(self, col):
@@ -60,7 +60,8 @@ class Bball(GameObject):
 			col.last_speed = u2
 
 	def update_transform(self, delta, camera):
-		#self.position[0] = self.last_speed[0]
+		self.ballCollide()
+		self.wallCollide()
 		time = self.last_time + self.h
 		self.last_time = time
 
@@ -75,10 +76,9 @@ class Bball(GameObject):
 
 		self.position[0] += self.last_speed[0] * delta
 		self.position[1] += self.last_speed[1] * delta
-
 		self.rotate([-self.last_speed[1]/self.radio, self.last_speed[0]/self.radio, 0])
-		self.wallCollide()
-		self.ballCollide()
+		
+		
 
 		GameObject.update_transform(self, delta, camera)
 
