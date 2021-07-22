@@ -3,6 +3,8 @@ import grafica.transformations as tr
 import curves as cv
 import math
 
+from operation import normalize
+
 # Clase para manejar una camara que se mueve en coordenadas polares
 class Camera:
     
@@ -69,18 +71,22 @@ class Camera:
                 self.position -= (self.at - self.position) * self.speed
                 self.at -= (self.at - self.position) * self.speed
 
+            # Camara rota
             if self.controller.is_d_pressed:
                 self.theta -= 0.05
             if self.controller.is_a_pressed:
                 self.theta += 0.05
 
             #Strafe
-            """# Camara se mueve a la izquierda  
+            # Camara se mueve a la izquierda  
             if self.controller.is_q_pressed:
-                self.position[0] -= self.speed
+                self.position -= normalize(np.cross(self.at - self.position, self.up)) * self.speed
+                self.at -= normalize(np.cross(self.at - self.position, self.up)) * self.speed
 
             # Camara se mueve a la derecha
             if self.controller.is_e_pressed:
-                self.position[0] += self.speed"""
+                print("e")
+                self.position += normalize(np.cross(self.at - self.position, self.up)) * self.speed
+                self.at += normalize(np.cross(self.at - self.position, self.up)) * self.speed
            
         self.update_view(delta)    

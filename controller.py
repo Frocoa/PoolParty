@@ -64,7 +64,7 @@ def on_key(self, window, key, scancode, action, mods):
             self.is_q_pressed = False
 
     # Caso de detectar la tecla [E], actualiza estado de variable
-    if key == glfw.KEY_A:
+    if key == glfw.KEY_E:
         if action == glfw.PRESS:
             self.is_e_pressed = True
         elif action == glfw.RELEASE:
