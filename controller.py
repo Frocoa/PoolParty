@@ -15,8 +15,11 @@ class Controller:
         self.is_q_pressed = False
         self.is_e_pressed = False
         self.is_tab_pressed = False
-        self.manual = True
-        self.firstPerson = True
+        self.is_left_pressed = False
+        self.is_right_pressed = False
+        self.is_up_pressed = False
+        self.is_down_pressed = False
+        self.firstPerson = False
         self.is_3_pressed = False
         self.theta = 0
         self.mousePos = (0, 0)
@@ -69,6 +72,34 @@ def on_key(self, window, key, scancode, action, mods):
             self.is_e_pressed = True
         elif action == glfw.RELEASE:
             self.is_e_pressed = False
+
+    # Caso de detectar la tecla [Izquierda], actualiza estado de variable
+    if key == glfw.KEY_LEFT:
+        if action == glfw.PRESS:
+            self.is_left_pressed = True
+        elif action == glfw.RELEASE:
+            self.is_left_pressed = False
+
+    # Caso de detectar la tecla [Derecha], actualiza estado de variable
+    if key == glfw.KEY_RIGHT:
+        if action == glfw.PRESS:
+            self.is_right_pressed = True
+        elif action == glfw.RELEASE:
+            self.is_right_pressed = False
+
+    # Caso de detectar la tecla [Up], actualiza estado de variable
+    if key == glfw.KEY_UP:
+        if action == glfw.PRESS:
+            self.is_up_pressed = True
+        elif action == glfw.RELEASE:
+            self.is_up_pressed = False
+
+    # Caso de detectar la tecla [Down], actualiza estado de variable
+    if key == glfw.KEY_DOWN:
+        if action == glfw.PRESS:
+            self.is_down_pressed = True
+        elif action == glfw.RELEASE:
+            self.is_down_pressed = False
     
     # Caso de detectar la barra espaciadora, se cambia el metodo de dibujo
     if key == glfw.KEY_SPACE:
@@ -85,16 +116,11 @@ def on_key(self, window, key, scancode, action, mods):
         if action == glfw.PRESS:
             self.firstPerson = not self.firstPerson  
 
-    # Caso de detectar el numero 2
-    if key == glfw.KEY_2:
-        if action == glfw.PRESS:
-            self.manual = not self.manual
-
     # Caso de detectar el numero 3
     if key == glfw.KEY_3:
         if action == glfw.PRESS:
-            self.is_3_pressed = not self.is_3_pressed                
-
+            self.is_3_pressed = not self.is_3_pressed
+                
     # Caso en que se cierra la ventana
     if key == glfw.KEY_ESCAPE:
         if action == glfw.PRESS:
