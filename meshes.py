@@ -3,7 +3,7 @@ import math
 import numpy as np
 import grafica.basic_shapes as bs
 
-def createTailMesh(textured=False):
+def createCueMesh(textured=False):
 
 	mesh = openmesh.TriMesh()
 

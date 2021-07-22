@@ -85,7 +85,6 @@ class Camera:
 
             # Camara se mueve a la derecha
             if self.controller.is_e_pressed:
-                print("e")
                 self.position += normalize(np.cross(self.at - self.position, self.up)) * self.speed
                 self.at += normalize(np.cross(self.at - self.position, self.up)) * self.speed
            

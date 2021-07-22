@@ -48,7 +48,7 @@ if __name__ == "__main__":
     glfw.set_key_callback(window, on_key_wrapper)
 
     # Pipeline con shaders con multiples fuentes de luz
-    phongPipeline = ls.MultiplePhongShaderProgram()
+    phongPipeline = ls.SimplePhongShaderProgram()
 
     phongTexPipeline = ls.SimpleTexturePhongShaderProgram()
 
@@ -84,6 +84,7 @@ if __name__ == "__main__":
     #Maru = nd.createCharacter(celPipeline, celTexPipeline, controller)
     #scene = nd.createScene(celPipeline, celTexPipeline)
     bolas = nd.createBalls(phongTex)
+    cue = nd.createCue(phong, controller)
     mesa = nd.createTable(phongTex)
 
     # Application loop
@@ -128,10 +129,10 @@ if __name__ == "__main__":
             light.update(delta)
 
         ########          Dibujo          ########
-        #scene.update(delta, camera, lights)
-        #Maru.update(delta, camera, lights)
         bolas.update(delta, camera, lights)
         mesa.update(delta, camera, lights)
+        cue.update(delta,camera,lights)
+
         # Once the drawing is rendered, buffers are swap so an uncomplete drawing is never seen.
         glfw.swap_buffers(window)
 
@@ -140,8 +141,5 @@ if __name__ == "__main__":
         sleep_time = target_time - glfw.get_time()
         if sleep_time > 0:
             time.sleep(sleep_time)
-
-    #scene.clear()
-    #Maru.clear()
 
     glfw.terminate()

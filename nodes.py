@@ -1,6 +1,7 @@
 import meshes as mh
 from gameobject import GameObject
 from BilliardBalls import Bball
+from cue import Cue
 from plane3d import Plane3D
 from shapes3d import *
 
@@ -93,9 +94,9 @@ def createBalls(tex_pipeline):
     b15.setScale([0.52, 0.52, 0.52])
     balls.append(b15)
 
-    cue = createBilliardBall(tex_pipeline, "cue", [4, 0])
-    cue.setScale([0.52, 0.52, 0.52])
-    balls.append(cue)
+    bcue = createBilliardBall(tex_pipeline, "cue", [4, 0])
+    bcue.setScale([0.52, 0.52, 0.52])
+    balls.append(bcue)
 
     ballSet = GameObject("ball set", tex_pipeline)
     ballSet.addChilds(balls)
@@ -107,6 +108,23 @@ def createBalls(tex_pipeline):
 
 
     return ballSet
+
+def createCue(pipeline, controller):
+    cueMesh = mh.createCueMesh()
+    cueShape = createGPUShape(pipeline, mh.toShape(cueMesh, color=(255/255, 128/255, 0.0)))
+
+    cueModel = GameObject("cue model", pipeline)
+    cueModel.setModel(cueShape)
+    cueModel.setRotation([90, 0, 0])
+    cueModel.setScale([0.6, 0.6, 10])
+    cueModel.setPosition([0, 1, 0])
+
+    cueCenter = Cue("cue", pipeline, controller)
+    cueCenter.addChilds([cueModel])
+    cueCenter.setPosition([4, 0, 0])
+    cueCenter.setRotation([0, 0, 80])
+    
+    return cueCenter
 
 def createTable(tex_pipeline):
     table = createPlane(tex_pipeline, "table", "table")

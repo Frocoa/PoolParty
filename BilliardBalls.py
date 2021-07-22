@@ -43,8 +43,8 @@ class Bball(GameObject):
 				self.bounce(ball)
 				d = (self.radio + ball.radio) - magnitud
 				angulo = np.arctan( (ball.position[1] - self.position[1]) / (ball.position[0] - self.position[0]))
-				self.position[0] += d/1.35 * np.cos(angulo)
-				self.position[1] += d/1.35 * np.sin(angulo)
+				self.position[0] += d/1.42 * np.cos(angulo)
+				self.position[1] += d/1.42 * np.sin(angulo)
 				
 
 	def bounce(self, col):
