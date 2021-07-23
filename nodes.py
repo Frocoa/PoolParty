@@ -126,9 +126,14 @@ def createCue(pipeline, controller):
     
     return cueCenter
 
-def createTable(pipeline):
+def createTable(pipeline, tex_pipeline):
     tableMesh = mh.createAmortiguador()
     tableShape = createGPUShape(pipeline, mh.toShape(tableMesh, color=(10/255, 108/255, 3/255)))
+
+    lona = createPlane(tex_pipeline, "lona", "lona")
+    lona.setRotation([90, 0, 0])
+    lona.setPosition([0, 0, -0.26])
+    lona.setScale([25.66, 1, 13.33])
 
     amortiguador = GameObject("amortiguador", pipeline)
     amortiguador.setModel(tableShape)
@@ -162,7 +167,6 @@ def createTable(pipeline):
     a6.setRotation([0, 0, 180])
     a6.setPosition([-6.35, -6.35, 0])
 
-
     table = GameObject("table", pipeline)
-    table.addChilds([a1, a2, a3, a4, a5, a6])
+    table.addChilds([a1, a2, a3, a4, a5, a6 , lona])
     return table

@@ -24,6 +24,7 @@ if __name__ == "__main__":
     width = 1422 #1920
     height = 924 #1080
     title = "Pool party"
+    glfw.window_hint(glfw.SAMPLES, 4)
 
     window = glfw.create_window(width, height, title, None, None)
 
@@ -73,7 +74,7 @@ if __name__ == "__main__":
 
     t0 = target_time = glfw.get_time()
     t_inicial = glfw.get_time()
-    loop_delta = 1./60
+    loop_delta = 1./120
 
     # Se instancian las luces que se van a utilizar
     lights = []
@@ -85,7 +86,7 @@ if __name__ == "__main__":
     #scene = nd.createScene(celPipeline, celTexPipeline)
     bolas = nd.createBalls(phongTex)
     cue = nd.createCue(phong, controller)
-    mesa = nd.createTable(phong)
+    mesa = nd.createTable(phong, phongTex)
 
     controller.ballList = bolas.childs
 

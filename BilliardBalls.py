@@ -9,7 +9,7 @@ class Bball(GameObject):
 
 		self.RAD_TO_DEG = 57.2958
 		self.position = [posXY[0], posXY[1], 0]
-		self.roce = 0.06
+		self.roce = 0.01
 		self.gravedad = -9.8
 		self.v0 = [0,0]
 		self.h = 0.1
@@ -21,7 +21,7 @@ class Bball(GameObject):
 
 	def f_roce(self, t, z):
 		# Entrega el vector f con todas las funciones del sistema
-		f = np.array([self.gravedad * self.roce * np.sign(self.last_speed[0]), self.gravedad * self.roce * np.sign(self.last_speed[1])])
+		f = np.array([self.gravedad * self.roce * self.last_speed[0], self.gravedad * self.roce * self.last_speed[1]])
 		return f
 	
 	def addSpeed(self, speed):
@@ -45,8 +45,8 @@ class Bball(GameObject):
 				if (ball.position[0] - self.position[0]) != 0: 
 					angulo = np.arctan( (ball.position[1] - self.position[1]) / (ball.position[0] - self.position[0]))
 				else: angulo = np.pi / 2
-				self.position[0] += d/1.42 * np.cos(angulo)
-				self.position[1] += d/1.42 * np.sin(angulo)
+				self.position[0] += d * np.cos(angulo)
+				self.position[1] += d * np.sin(angulo)
 				
 
 	def bounce(self, col):
@@ -64,27 +64,29 @@ class Bball(GameObject):
 	def update_transform(self, delta, camera):
 		self.ballCollide()
 		self.wallCollide()
-		if self.nombre == "bola1":
-			print(self.nombre, self.last_speed)
+
 		#if np.abs(np.linalg.norm(self.last_speed)) <= 0.3:
 		#	self.last_speed = [0, 0]
 
-		time = self.last_time + self.h
+		time = self.last_time + self.h*delta
 		self.last_time = time
 
 		next_value = edo.RK4_step(self.f_roce, self.h, time, self.last_speed)
+
+		if self.nombre == "bola1":
+			print(self.last_speed - next_value)
+
 		self.last_speed = next_value
 
 		
 
-		"""if np.abs(self.last_speed[0]) <= 0.03:
+		if np.abs(self.last_speed[0]) <= 0.03:
 			self.last_speed[0] = 0
 
 		if np.abs(self.last_speed[1]) <= 0.03:
-			self.last_speed[1] = 0"""
+			self.last_speed[1] = 0
 
-		self.position[0] += self.last_speed[0] * delta
-		self.position[1] += self.last_speed[1] * delta
+		self.translate([self.last_speed[0] * delta, self.last_speed[1] * delta, 0])
 		self.rotate([-self.last_speed[1]/self.radio, self.last_speed[0]/self.radio, 0])
 		
 		
