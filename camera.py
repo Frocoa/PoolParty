@@ -42,7 +42,7 @@ class Camera:
             self.up = ([0, 0, 1])
 
         if self.controller.firstPerson == False:
-            self.eye = np.array([0, 0, 11])
+            self.eye = np.array([0, 0, 15])
             self.setAt(np.array([0.1, 0, 0]))
             self.up = ([0, 1, 0])
 

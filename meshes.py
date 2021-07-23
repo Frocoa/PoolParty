@@ -56,7 +56,46 @@ def createCueMesh(textured=False):
 
 	return mesh
 
-def createBodyMesh(textured=False):
+def createAmortiguador(textured = False):
+
+	mesh = openmesh.TriMesh()
+
+	# abajo
+	d1 = mesh.add_vertex(np.array([  -0.5,  0.5,  -0.5]))
+	d2 = mesh.add_vertex(np.array([  -0.43, -0.5,  -0.5]))
+	d3 = mesh.add_vertex(np.array([  0.43,   -0.5,  -0.5]))
+	d4 = mesh.add_vertex(np.array([  0.5,   0.5,  -0.5]))
+
+	# arriba
+	u1 = mesh.add_vertex(np.array([  -0.5,  0.5,  0.5]))
+	u2 = mesh.add_vertex(np.array([  -0.44, -0.5,  0.5]))
+	u3 = mesh.add_vertex(np.array([  0.44,   -0.5,  0.5]))
+	u4 = mesh.add_vertex(np.array([  0.5,   0.5,  0.5]))
+
+	# tapa de abajo
+	mesh.add_face([d3, d2 ,d1])
+	mesh.add_face([d4, d3, d1])
+
+	# laterales
+	mesh.add_face([d1, d2, u2])
+	mesh.add_face([d1, u2, u1])
+
+	mesh.add_face([d2, d3, u3])
+	mesh.add_face([d2, u3, u2])
+
+	mesh.add_face([d3, d4, u4])
+	mesh.add_face([d3, u4, u3])
+
+	mesh.add_face([d4, d1, u1])
+	mesh.add_face([d4, u1, u4])
+
+	# tapa de arriba
+	mesh.add_face([u1, u2, u3])
+	mesh.add_face([u3, u4, u1])
+
+	return mesh
+
+"""def createBodyMesh(textured=False):
 
 	mesh = openmesh.TriMesh()
 
@@ -125,7 +164,7 @@ def createBodyMesh(textured=False):
 	mesh.add_face([u4, u1, u6])
 	mesh.add_face([u4, u6, u5])
 
-	return mesh
+	return mesh"""
 
 # funcion que modela el terreno
 def terreno(x, y):

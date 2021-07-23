@@ -28,13 +28,13 @@ class Bball(GameObject):
 		self.last_speed = [self.last_speed[0] + speed[0], self.last_speed[1] + speed[1]]
 
 	def wallCollide(self):
-		if abs(self.position[0]) > 10.65:
+		if abs(self.position[0]) > 12.43:
 			self.last_speed[0] = -self.last_speed[0]
-			self.position[0] = -10.65 * np.sign(self.last_speed[0])
+			self.position[0] = -12.43 * np.sign(self.last_speed[0])
 
-		if abs(self.position[1]) > 6.05:
+		if abs(self.position[1]) > 5.9:
 			self.last_speed[1] = -self.last_speed[1]
-			self.position[1] = -6.05 * np.sign(self.last_speed[1])
+			self.position[1] = -5.9 * np.sign(self.last_speed[1])
 
 	def ballCollide(self):
 		for ball in self.collBalls:
@@ -64,17 +64,24 @@ class Bball(GameObject):
 	def update_transform(self, delta, camera):
 		self.ballCollide()
 		self.wallCollide()
+		if self.nombre == "bola1":
+			print(self.nombre, self.last_speed)
+		#if np.abs(np.linalg.norm(self.last_speed)) <= 0.3:
+		#	self.last_speed = [0, 0]
+
 		time = self.last_time + self.h
 		self.last_time = time
 
 		next_value = edo.RK4_step(self.f_roce, self.h, time, self.last_speed)
 		self.last_speed = next_value
 
-		if np.abs(self.last_speed[0]) <= 0.05:
+		
+
+		"""if np.abs(self.last_speed[0]) <= 0.03:
 			self.last_speed[0] = 0
 
-		if np.abs(self.last_speed[1]) <= 0.05:
-			self.last_speed[1] = 0
+		if np.abs(self.last_speed[1]) <= 0.03:
+			self.last_speed[1] = 0"""
 
 		self.position[0] += self.last_speed[0] * delta
 		self.position[1] += self.last_speed[1] * delta

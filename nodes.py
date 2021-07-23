@@ -126,9 +126,43 @@ def createCue(pipeline, controller):
     
     return cueCenter
 
-def createTable(tex_pipeline):
-    table = createPlane(tex_pipeline, "table", "table")
-    table.setRotation([90, 90, 0])
-    table.setScale([12.1, 1, 21.3 ])
-    table.setPosition([0, 0, -0.26])
+def createTable(pipeline):
+    tableMesh = mh.createAmortiguador()
+    tableShape = createGPUShape(pipeline, mh.toShape(tableMesh, color=(10/255, 108/255, 3/255)))
+
+    amortiguador = GameObject("amortiguador", pipeline)
+    amortiguador.setModel(tableShape)
+    amortiguador.setScale([12.33, 0.6, 0.56])
+
+    a1 = GameObject("a1", pipeline)
+    a1.addChilds([amortiguador])
+    a1.setRotation([0, 0, 90])
+    a1.setPosition([-12.8, 0, 0])
+
+    a2 = GameObject("a1", pipeline)
+    a2.addChilds([amortiguador])
+    a2.setRotation([0, 0, -90])
+    a2.setPosition([12.8, 0, 0])
+
+    a3 = GameObject("a1", pipeline)
+    a3.addChilds([amortiguador])
+    a3.setPosition([6.35, 6.35, 0])
+
+    a4 = GameObject("a1", pipeline)
+    a4.addChilds([amortiguador])
+    a4.setPosition([-6.35, 6.35, 0])
+
+    a5 = GameObject("a1", pipeline)
+    a5.addChilds([amortiguador])
+    a5.setRotation([0, 0, 180])
+    a5.setPosition([6.35, -6.35, 0])
+
+    a6 = GameObject("a1", pipeline)
+    a6.addChilds([amortiguador])
+    a6.setRotation([0, 0, 180])
+    a6.setPosition([-6.35, -6.35, 0])
+
+
+    table = GameObject("table", pipeline)
+    table.addChilds([a1, a2, a3, a4, a5, a6])
     return table

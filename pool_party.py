@@ -22,7 +22,7 @@ if __name__ == "__main__":
         glfw.set_window_should_close(window, True)
 
     width = 1422 #1920
-    height = 800 #1080
+    height = 924 #1080
     title = "Pool party"
 
     window = glfw.create_window(width, height, title, None, None)
@@ -56,7 +56,7 @@ if __name__ == "__main__":
     phong = phongPipeline
     phongTex = phongTexPipeline
     # Setting up the clear screen color
-    glClearColor(0, 42/255, 42/255, 53/255) # color cielo oscuro
+    glClearColor(0, 84/255, 84/255, 106/255) # color cielo oscuro
 
     # As we work in 3D, we need to check which part is in front,
     # and which one is at the back
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     #scene = nd.createScene(celPipeline, celTexPipeline)
     bolas = nd.createBalls(phongTex)
     cue = nd.createCue(phong, controller)
-    mesa = nd.createTable(phongTex)
+    mesa = nd.createTable(phong)
 
     controller.ballList = bolas.childs
 
@@ -119,9 +119,6 @@ if __name__ == "__main__":
             phong = phongPipeline
             phongTex = phongTexPipeline  """
 
-        # Se cambia entre phong y cel
-        if (controller.is_tab_pressed):
-            bolas.childs[0].addSpeed([0.8, 0.8])
         #else:
         #    Maru.changeTreesPipeline(cel, celTex)
         #    scene.changeTreesPipeline(cel, celTex)
