@@ -1,4 +1,5 @@
 from gameobject import GameObject
+import grafica.transformations as tr
 import numpy as np
 
 class Cue(GameObject):
@@ -17,6 +18,9 @@ class Cue(GameObject):
 		ball.last_speed = strenght[:2]
 
 	def update_transform(self, delta, camera):
+		while self.controller.ballList[self.controller.selectedBall].inGame == False:
+			self.controller.selectedBall = (self.controller.selectedBall+1) % 16
+
 		self.objective = self.controller.ballList[self.controller.selectedBall]
 		self.canHit = True
 
@@ -51,6 +55,10 @@ class Cue(GameObject):
 				self.hitting = False
 				self.childs[0].position[1] = self.objective.radio * 2
 
-		#self.childs[0]
 		if self.canHit:
 			GameObject.update_transform(self, delta, camera)
+
+	def draw(self, pipeline, transformName, camera, lights, parentTransform=tr.identity()):
+
+		if self.canHit == True:
+			GameObject.draw(self, pipeline, transformName, camera, lights, parentTransform)

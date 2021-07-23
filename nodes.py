@@ -31,10 +31,11 @@ def createBilliardBall(tex_pipeline, number, posXY = [0, 0]):
     path = "assets/" + "b" + number + ".png"
     ballModel.setModel(createTextureGPUShape(ballShape, tex_pipeline, path), True)
 
-    ball = Bball("bola" + number, tex_pipeline, posXY)
+    ball = Bball("bola" + number, tex_pipeline, posXY, int(number))
     ball.addChilds([ballModel])
 
     return ball
+
 
 def createBalls(tex_pipeline):
     shadowPath = "assets/shadow.png"
@@ -102,7 +103,7 @@ def createBalls(tex_pipeline):
     b15.setScale([0.52, 0.52, 0.52])
     balls.append(b15)
 
-    bcue = createBilliardBall(tex_pipeline, "cue", [4, 0])
+    bcue = createBilliardBall(tex_pipeline, 0, [4, 0])
     bcue.setScale([0.52, 0.52, 0.52])
     balls.append(bcue)
 
@@ -144,6 +145,14 @@ def createCue(pipeline, controller):
     return cueCenter
 
 def createTable(pipeline, tex_pipeline):
+
+    holePath = "assets/shadow.png"
+
+    holeModel = GameObject("hole", tex_pipeline)
+    holeModel.setModel(createTextureGPUShape(createTextureNormalPlane(), tex_pipeline, holePath), True)
+    holeModel.setRotation([90, 0, 0])
+    holeModel.setPosition([0, 0, -0.259])
+
     tableMesh = mh.createAmortiguador()
     tableShape = createGPUShape(pipeline, mh.toShape(tableMesh, color=(10/255, 108/255, 3/255)))
 
@@ -161,29 +170,55 @@ def createTable(pipeline, tex_pipeline):
     a1.setRotation([0, 0, 90])
     a1.setPosition([-12.8, 0, 0])
 
-    a2 = GameObject("a1", pipeline)
+    a2 = GameObject("a2", pipeline)
     a2.addChilds([amortiguador])
     a2.setRotation([0, 0, -90])
     a2.setPosition([12.8, 0, 0])
 
-    a3 = GameObject("a1", pipeline)
+    a3 = GameObject("a3", pipeline)
     a3.addChilds([amortiguador])
     a3.setPosition([6.35, 6.35, 0])
 
-    a4 = GameObject("a1", pipeline)
+    a4 = GameObject("a4", pipeline)
     a4.addChilds([amortiguador])
     a4.setPosition([-6.35, 6.35, 0])
 
-    a5 = GameObject("a1", pipeline)
+    a5 = GameObject("a5", pipeline)
     a5.addChilds([amortiguador])
     a5.setRotation([0, 0, 180])
     a5.setPosition([6.35, -6.35, 0])
 
-    a6 = GameObject("a1", pipeline)
+    a6 = GameObject("a6", pipeline)
     a6.addChilds([amortiguador])
     a6.setRotation([0, 0, 180])
     a6.setPosition([-6.35, -6.35, 0])
 
+    h1 = GameObject("h1", tex_pipeline)
+    h1.addChilds([holeModel])
+    h1.setPosition([0, -6.1, 0])
+
+    h2 = GameObject("h2", tex_pipeline)
+    h2.addChilds([holeModel])
+    h2.setPosition([0, 6.1, 0])
+
+    h3 = GameObject("h3", tex_pipeline)
+    h3.addChilds([holeModel])
+    h3.setPosition([12.5, 6.1, 0])
+
+    h4 = GameObject("h4", tex_pipeline)
+    h4.addChilds([holeModel])
+    h4.setPosition([-12.5, 6.1, 0])
+
+    h5 = GameObject("h5", tex_pipeline)
+    h5.addChilds([holeModel])
+    h5.setPosition([-12.5, -6.1, 0])
+
+    h6 = GameObject("h6", tex_pipeline)
+    h6.addChilds([holeModel])
+    h6.setPosition([12.5, -6.1, 0])
+
+
+
     table = GameObject("table", pipeline)
-    table.addChilds([a1, a2, a3, a4, a5, a6 , lona])
+    table.addChilds([a1, a2, a3, a4, a5, a6 ,h1, h2, h3, h4, h5, h6, lona])
     return table

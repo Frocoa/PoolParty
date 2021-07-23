@@ -120,7 +120,7 @@ def on_key(self, window, key, scancode, action, mods):
     # Caso de detectar el numero 3
     if key == glfw.KEY_3:
         if action == glfw.PRESS:
-            self.selectedBall += 1
+            self.selectedBall = (self.selectedBall + 1) % 16
                 
     # Caso en que se cierra la ventana
     if key == glfw.KEY_ESCAPE:
