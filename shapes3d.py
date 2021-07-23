@@ -24,6 +24,8 @@ def createTextureGPUShape(shape, pipeline, path):
         path, GL_REPEAT, GL_REPEAT, GL_NEAREST, GL_NEAREST)
     return gpuShape
 
+
+
 def createNormalBall(N):
     vertices = []
     indices = []

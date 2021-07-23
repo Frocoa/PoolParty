@@ -1,6 +1,7 @@
 import meshes as mh
 from gameobject import GameObject
 from BilliardBalls import Bball
+from shadow import Shadow
 from cue import Cue
 from plane3d import Plane3D
 from shapes3d import *
@@ -25,17 +26,24 @@ def create3dPlane(pipeline, nombre, texture_name):
 def createBilliardBall(tex_pipeline, number, posXY = [0, 0]):
     number = str(number)
     ballShape = createNormalBall(30)
-    ball = Bball("bola"+ number, tex_pipeline, posXY)
-    ball.setRotation([0, 90, 0])
+    ballModel = GameObject("bola"+ number + "model", tex_pipeline)
+    ballModel.setRotation([0, 90, 0])
     path = "assets/" + "b" + number + ".png"
-    ball.setModel(createTextureGPUShape(ballShape, tex_pipeline, path), True)
-    
+    ballModel.setModel(createTextureGPUShape(ballShape, tex_pipeline, path), True)
+
+    ball = Bball("bola" + number, tex_pipeline, posXY)
+    ball.addChilds([ballModel])
+
     return ball
 
 def createBalls(tex_pipeline):
+    shadowPath = "assets/shadow.png"
+
     balls = []
+    shadows = []
     b1 = createBilliardBall(tex_pipeline, 1)
     b1.setScale([0.52, 0.52, 0.52])
+    b1.setRotation([0, 25, 0])
     balls.append(b1)
 
     b2 = createBilliardBall(tex_pipeline, 2, [-0.52, -0.26])
@@ -100,12 +108,21 @@ def createBalls(tex_pipeline):
 
     ballSet = GameObject("ball set", tex_pipeline)
     ballSet.addChilds(balls)
+    
 
     for ball in balls:
         auxList = balls[:]
         auxList.remove(ball)
         ball.collBalls = auxList
 
+    for ball in balls:
+        shadow = Shadow("sombra", tex_pipeline)
+        shadow.ball = ball
+        shadow.setModel(createTextureGPUShape(createTextureNormalPlane(), tex_pipeline, shadowPath), True)
+        shadow.setRotation([90, 0, 0])
+        shadows.append(shadow)
+
+    ballSet.addChilds(shadows)
 
     return ballSet
 

@@ -5,7 +5,7 @@ class Light():
 
 	def __init__(self, controller):
 
-		self.position = [2, 0, 1] # posicion de la luz
+		self.position = [0, 0, 1] # posicion de la luz
 		self.Ld = [0.3, 0.3, 0.3] # componente difusa
 		self.Ls = [0.01, 0.01, 0.01] # componente especular
 		self.N =  600 # cantidad de puntos en las curvas

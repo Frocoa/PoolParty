@@ -1262,7 +1262,9 @@ class SimpleTexturePhongShaderProgram:
             uniform sampler2D samplerTex;
 
             void main()
-            {
+            {   
+                
+
                 // ambient
                 vec3 ambient = Ka * La;
                 
@@ -1274,6 +1276,8 @@ class SimpleTexturePhongShaderProgram:
                 float diff = max(dot(normalizedNormal, lightDir), 0.0);
                 vec3 diffuse = Kd * Ld * diff;
                 
+                
+
                 // specular
                 vec3 viewDir = normalize(viewPosition - fragPosition);
                 vec3 reflectDir = reflect(-lightDir, normalizedNormal);  
@@ -1288,8 +1292,12 @@ class SimpleTexturePhongShaderProgram:
                     
                 vec4 fragOriginalColor = texture(samplerTex, fragTexCoords);
 
+                if(fragOriginalColor.a < 0.1f){
+                    discard;
+                }
+                
                 vec3 result = (ambient + ((diffuse + specular) / attenuation)) * fragOriginalColor.rgb;
-                fragColor = vec4(result, 0);
+                fragColor = vec4(result, fragOriginalColor.a);
             }
             """
 

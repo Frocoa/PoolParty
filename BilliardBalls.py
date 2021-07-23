@@ -44,7 +44,12 @@ class Bball(GameObject):
 				d = (self.radio + ball.radio) - magnitud
 				if (ball.position[0] - self.position[0]) != 0: 
 					angulo = np.arctan( (ball.position[1] - self.position[1]) / (ball.position[0] - self.position[0]))
+
 				else: angulo = np.pi / 2
+
+				self.last_speed[0] += magnitud * np.cos(angulo)
+				self.last_speed[1] += magnitud * np.sin(angulo)
+
 				self.position[0] += d * np.cos(angulo)
 				self.position[1] += d * np.sin(angulo)
 				
@@ -73,17 +78,14 @@ class Bball(GameObject):
 
 		next_value = edo.RK4_step(self.f_roce, self.h, time, self.last_speed)
 
-		if self.nombre == "bola1":
-			print(self.last_speed - next_value)
-
 		self.last_speed = next_value
 
 		
 
-		if np.abs(self.last_speed[0]) <= 0.03:
+		if np.abs(self.last_speed[0]) <= 0.1:
 			self.last_speed[0] = 0
 
-		if np.abs(self.last_speed[1]) <= 0.03:
+		if np.abs(self.last_speed[1]) <= 0.1:
 			self.last_speed[1] = 0
 
 		self.translate([self.last_speed[0] * delta, self.last_speed[1] * delta, 0])

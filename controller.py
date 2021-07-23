@@ -19,7 +19,7 @@ class Controller:
         self.is_right_pressed = False
         self.is_up_pressed = False
         self.is_down_pressed = False
-        self.firstPerson = False
+        self.firstPerson = True
         self.theta = 0
         self.mousePos = (0, 0)
         self.selectedBall = 0

@@ -3,6 +3,7 @@ import math
 import time
 import OpenGL.GL.shaders
 import grafica.performance_monitor as pm
+from BilliardBalls import Bball
 import LightShaders as ls
 import grafica.transformations as tr
 import nodes as nd
@@ -64,6 +65,10 @@ if __name__ == "__main__":
     glEnable(GL_DEPTH_TEST)
     glLineWidth(10)
 
+    # Activando transparencias
+    glEnable(GL_BLEND)
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+    
     # Se instancia la camara
     camera = Camera(controller)
     camera.setProjection(tr.perspective(60, float(width) / float(height), 0.1, 100))
@@ -88,7 +93,10 @@ if __name__ == "__main__":
     cue = nd.createCue(phong, controller)
     mesa = nd.createTable(phong, phongTex)
 
-    controller.ballList = bolas.childs
+    for bola in bolas.childs:
+        if not isinstance(bola, Bball):
+            continue
+        controller.ballList += [bola]
 
     # Application loop
     while not glfw.window_should_close(window):
@@ -130,6 +138,7 @@ if __name__ == "__main__":
 
         ########          Dibujo          ########
         bolas.update(delta, camera, lights)
+        #bolas.childs[0].update(delta, camera, lights)
         mesa.update(delta, camera, lights)
         cue.update(delta,camera,lights)
 
