@@ -42,7 +42,9 @@ class Bball(GameObject):
 			if magnitud < (self.radio + ball.radio):
 				self.bounce(ball)
 				d = (self.radio + ball.radio) - magnitud
-				angulo = np.arctan( (ball.position[1] - self.position[1]) / (ball.position[0] - self.position[0]))
+				if (ball.position[0] - self.position[0]) != 0: 
+					angulo = np.arctan( (ball.position[1] - self.position[1]) / (ball.position[0] - self.position[0]))
+				else: angulo = np.pi / 2
 				self.position[0] += d/1.42 * np.cos(angulo)
 				self.position[1] += d/1.42 * np.sin(angulo)
 				

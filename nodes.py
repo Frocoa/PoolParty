@@ -122,7 +122,7 @@ def createCue(pipeline, controller):
     cueCenter = Cue("cue", pipeline, controller)
     cueCenter.addChilds([cueModel])
     cueCenter.setPosition([4, 0, 0])
-    cueCenter.setRotation([0, 0, 80])
+    cueCenter.setRotation([0, 0, 0])
     
     return cueCenter
 

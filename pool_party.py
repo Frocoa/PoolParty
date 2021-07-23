@@ -87,6 +87,8 @@ if __name__ == "__main__":
     cue = nd.createCue(phong, controller)
     mesa = nd.createTable(phongTex)
 
+    controller.ballList = bolas.childs
+
     # Application loop
     while not glfw.window_should_close(window):
         # Variables del tiempo
@@ -108,14 +110,14 @@ if __name__ == "__main__":
         glfw.set_window_title(window, title + str(perfMonitor))
 
         # Se cambian las luces entre spot y normales
-        if (controller.is_3_pressed == True):
+        """if (controller.is_3_pressed == True):
             phong = phongSpotPipeline
             phongTex = phongTexSpotPipeline
             cel = celSpotPipeline
             celTex = celTexSpotPipeline
         else:
             phong = phongPipeline
-            phongTex = phongTexPipeline  
+            phongTex = phongTexPipeline  """
 
         # Se cambia entre phong y cel
         if (controller.is_tab_pressed):

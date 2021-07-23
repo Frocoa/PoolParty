@@ -20,9 +20,10 @@ class Controller:
         self.is_up_pressed = False
         self.is_down_pressed = False
         self.firstPerson = False
-        self.is_3_pressed = False
         self.theta = 0
         self.mousePos = (0, 0)
+        self.selectedBall = 0
+        self.ballList = []
 
 # Metodo para leer la posicion del mouse
 def cursor_pos_callback(self, window, x, y):
@@ -119,7 +120,7 @@ def on_key(self, window, key, scancode, action, mods):
     # Caso de detectar el numero 3
     if key == glfw.KEY_3:
         if action == glfw.PRESS:
-            self.is_3_pressed = not self.is_3_pressed
+            self.selectedBall += 1
                 
     # Caso en que se cierra la ventana
     if key == glfw.KEY_ESCAPE:
