@@ -25,7 +25,7 @@ if __name__ == "__main__":
     width = 1422 #1920
     height = 924 #1080
     title = "Pool party"
-    glfw.window_hint(glfw.SAMPLES, 4)
+    glfw.window_hint(glfw.SAMPLES, 16)
 
     window = glfw.create_window(width, height, title, None, None)
 
@@ -68,6 +68,7 @@ if __name__ == "__main__":
     # Activando transparencias
     glEnable(GL_BLEND)
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+
     
     # Se instancia la camara
     camera = Camera(controller)

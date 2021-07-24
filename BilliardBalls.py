@@ -50,29 +50,30 @@ class Bball(GameObject):
 
 	def ballCollide(self):
 		for ball in self.collBalls:
-			magnitud = np.linalg.norm([ball.position[0] - self.position[0], ball.position[1] - self.position[1]])
+			if ball.inGame == True:
+				magnitud = np.linalg.norm([ball.position[0] - self.position[0], ball.position[1] - self.position[1]])
 
-			if magnitud <= (self.radio + ball.radio):
+				if magnitud <= (self.radio + ball.radio):
 
-				if (ball == self.alreadyCollided and self.collideFrames > 10) or ball != self.alreadyCollided:
-					self.bounce(ball)
-					self.alreadyCollided = ball
-					self.collideFrames = 0
-					ball.alreadyCollided = self
-					ball.collideFrames = 0
+					if (ball == self.alreadyCollided and self.collideFrames > 10) or ball != self.alreadyCollided:
+						self.bounce(ball)
+						self.alreadyCollided = ball
+						self.collideFrames = 0
+						ball.alreadyCollided = self
+						ball.collideFrames = 0
 
-			if magnitud <= (self.radio + ball.radio):	
-				d = (self.radio + ball.radio) - magnitud
-				if (ball.position[0] - self.position[0]) != 0: 
-					angulo = np.arctan( (ball.position[1] - self.position[1]) / (ball.position[0] - self.position[0]))
+				if magnitud < (self.radio + ball.radio):	
+					d = (self.radio + ball.radio) - magnitud
+					if (ball.position[0] - self.position[0]) != 0: 
+						angulo = np.arctan( (ball.position[1] - self.position[1]) / (ball.position[0] - self.position[0]))
 
-				else: angulo = np.pi / 2
+					else: angulo = np.pi / 2
 
-				#self.last_speed[0] += magnitud * np.cos(angulo)
-				#self.last_speed[1] += magnitud * np.sin(angulo)
+					#self.last_speed[0] += magnitud * np.cos(angulo)
+					#self.last_speed[1] += magnitud * np.sin(angulo)
 
-				#self.position[0] += d * np.cos(angulo)
-				#self.position[1] += d * np.sin(angulo)
+					self.position[0] += d * np.cos(angulo)
+					self.position[1] += d * np.sin(angulo)
 				
 
 	def bounce(self, col):
@@ -101,11 +102,14 @@ class Bball(GameObject):
 			next_value = edo.RK4_step(self.f_roce, self.h, time, self.last_speed)
 			self.last_speed = next_value
 
-			if np.abs(self.last_speed[0]) <= 0.3:
+			if np.abs(np.linalg.norm(self.last_speed)) <= 0.3:
+				self.last_speed = np.array([0, 0])
+
+			"""if np.abs(self.last_speed[0]) <= 0.1:
 				self.last_speed[0] = 0
 
-			if np.abs(self.last_speed[1]) <= 0.3:
-				self.last_speed[1] = 0
+			if np.abs(self.last_speed[1]) <= 0.1:
+				self.last_speed[1] = 0"""
 
 			self.translate([self.last_speed[0] * delta, self.last_speed[1] * delta, 0])
 			self.rotate([-self.last_speed[1]/self.radio, self.last_speed[0]/self.radio, 0])

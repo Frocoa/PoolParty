@@ -25,7 +25,7 @@ def create3dPlane(pipeline, nombre, texture_name):
 
 def createBilliardBall(tex_pipeline, number, posXY = [0, 0]):
     number = str(number)
-    ballShape = createNormalBall(30)
+    ballShape = createNormalBall(20)
     ballModel = GameObject("bola"+ number + "model", tex_pipeline)
     ballModel.setRotation([0, 90, 0])
     path = "assets/" + "b" + number + ".png"
@@ -119,7 +119,7 @@ def createBalls(tex_pipeline):
     for ball in balls:
         shadow = Shadow("sombra", tex_pipeline)
         shadow.ball = ball
-        shadow.setModel(createTextureGPUShape(createTextureNormalPlane(), tex_pipeline, shadowPath), True)
+        shadow.setModel(createTextureGPUShape(createTextureNormalPlane(), tex_pipeline, shadowPath, False), True)
         shadow.setRotation([90, 0, 0])
         shadows.append(shadow)
 
@@ -149,7 +149,7 @@ def createTable(pipeline, tex_pipeline):
     holePath = "assets/shadow.png"
 
     holeModel = GameObject("hole", tex_pipeline)
-    holeModel.setModel(createTextureGPUShape(createTextureNormalPlane(), tex_pipeline, holePath), True)
+    holeModel.setModel(createTextureGPUShape(createTextureNormalPlane(), tex_pipeline, holePath, False), True)
     holeModel.setRotation([90, 0, 0])
     holeModel.setPosition([0, 0, -0.259])
 

@@ -15,13 +15,21 @@ def createGPUShape(pipeline, shape):
     gpuShape.fillBuffers(shape.vertices, shape.indices, GL_STATIC_DRAW)
     return gpuShape
 
-def createTextureGPUShape(shape, pipeline, path):
+def createTextureGPUShape(shape, pipeline, path, mipMap = True):
     # Funcion Conveniente para facilitar la inicializacion de un GPUShape con texturas
     gpuShape = gs.GPUShape().initBuffers()
     pipeline.setupVAO(gpuShape)
     gpuShape.fillBuffers(shape.vertices, shape.indices, GL_STATIC_DRAW)
-    gpuShape.texture = ls.textureSimpleSetup(
-        path, GL_REPEAT, GL_REPEAT, GL_NEAREST, GL_NEAREST)
+
+    if mipMap == True:
+        gpuShape.texture = ls.textureSimpleSetup(
+            path, GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_NEAREST, GL_NEAREST)
+        glGenerateMipmap(GL_TEXTURE_2D)
+
+    else:
+        gpuShape.texture = ls.textureSimpleSetup(
+            path, GL_REPEAT, GL_REPEAT, GL_NEAREST, GL_NEAREST)
+
     return gpuShape
 
 
