@@ -21,6 +21,9 @@ class Bball(GameObject):
 		self.last_speed = self.v0
 		self.last_time = 0
 
+		self.alreadyCollided = None
+		self.collideFrames = 0
+
 	def f_roce(self, t, z):
 		# Entrega el vector f con todas las funciones del sistema
 		f = np.array([self.gravedad * self.roce * self.last_speed[0], self.gravedad * self.roce * self.last_speed[1]])
@@ -50,17 +53,21 @@ class Bball(GameObject):
 			magnitud = np.linalg.norm([ball.position[0] - self.position[0], ball.position[1] - self.position[1]])
 
 			if magnitud <= (self.radio + ball.radio):
-				self.bounce(ball)
 
-			if magnitud < (self.radio + ball.radio):	
+				if (ball == self.alreadyCollided and self.collideFrames > 1) or ball != self.alreadyCollided:
+					self.bounce(ball)
+					self.alreadyCollided = ball
+					self.collideFrames = 0
+
+			if magnitud <= (self.radio + ball.radio):	
 				d = (self.radio + ball.radio) - magnitud
 				if (ball.position[0] - self.position[0]) != 0: 
 					angulo = np.arctan( (ball.position[1] - self.position[1]) / (ball.position[0] - self.position[0]))
 
 				else: angulo = np.pi / 2
 
-				self.last_speed[0] += magnitud * np.cos(angulo)
-				self.last_speed[1] += magnitud * np.sin(angulo)
+				#self.last_speed[0] += magnitud * np.cos(angulo)
+				#self.last_speed[1] += magnitud * np.sin(angulo)
 
 				self.position[0] += d * np.cos(angulo)
 				self.position[1] += d * np.sin(angulo)
@@ -79,20 +86,23 @@ class Bball(GameObject):
 			col.last_speed = u2
 
 	def update_transform(self, delta, camera):
+
 		if self.inGame == True:
 			self.ballCollide()
 			self.wallCollide()
 			self.holeCollide()
+
+			self.collideFrames += 1
 
 			time = self.last_time + self.h*delta
 			self.last_time = time
 			next_value = edo.RK4_step(self.f_roce, self.h, time, self.last_speed)
 			self.last_speed = next_value
 
-			if np.abs(self.last_speed[0]) <= 0.15:
+			if np.abs(self.last_speed[0]) <= 0.3:
 				self.last_speed[0] = 0
 
-			if np.abs(self.last_speed[1]) <= 0.15:
+			if np.abs(self.last_speed[1]) <= 0.3:
 				self.last_speed[1] = 0
 
 			self.translate([self.last_speed[0] * delta, self.last_speed[1] * delta, 0])

@@ -42,6 +42,16 @@ def euler_step(f, h, t_n, z_n):
     next_z = z_n + h*f(t_n, z_n)
     return next_z
 
+# Calculo un paso de la aproximacion con el metodo de euler mejorado
+def euler_mejorado_step(f, h, t_n, z_n):
+    next_z = z_n + (h/2) * (f(t_n, z_n) + f(t_n + h, z_n))
+    return next_z
+
+# Calculo un paso de la proximacion con el metodo de euler modificado
+def euler_modificado_step(f, h, t_n, z_n):
+    next_z = z_n + h * f(t_n + (h/2), z_n)
+    return next_z
+
 # Dada una función f, un h, un vector de tiempos y las condiciones iniciales, calcula la aproximación con euler
 def resolve_euler(f, h, t, z_0):
     # Vector donde se dejarán los resultados
