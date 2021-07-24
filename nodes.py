@@ -47,15 +47,15 @@ def createBalls(tex_pipeline):
     b1.setRotation([0, 25, 0])
     balls.append(b1)
 
-    b2 = createBilliardBall(tex_pipeline, 2, [-1.52, -0.26])
+    b2 = createBilliardBall(tex_pipeline, 2, [-0.52, -0.26])
     b2.setScale([0.52, 0.52, 0.52])
     balls.append(b2)
 
-    b3 = createBilliardBall(tex_pipeline, 3, [-2.37, -1.52])
+    b3 = createBilliardBall(tex_pipeline, 3, [-1.04, -0.52])
     b3.setScale([0.52, 0.52, 0.52])
     balls.append(b3)
 
-    b4 = createBilliardBall(tex_pipeline, 4, [-1.56, -3.78])
+    b4 = createBilliardBall(tex_pipeline, 4, [-1.56, -0.78])
     b4.setScale([0.52, 0.52, 0.52])
     balls.append(b4)
 
@@ -67,39 +67,39 @@ def createBalls(tex_pipeline):
     b6.setScale([0.52, 0.52, 0.52])
     balls.append(b6)
 
-    b7 = createBilliardBall(tex_pipeline, 7, [-1.56, 1.26])
+    b7 = createBilliardBall(tex_pipeline, 7, [-1.56, 0.26])
     b7.setScale([0.52, 0.52, 0.52])
     balls.append(b7)
 
-    b8 = createBilliardBall(tex_pipeline, 8, [-3.04, 1.24])
+    b8 = createBilliardBall(tex_pipeline, 8, [-1.04, 0])
     b8.setScale([0.52, 0.52, 0.52])
     balls.append(b8)
 
-    b9 = createBilliardBall(tex_pipeline, 9, [-4.12, 2.26])
+    b9 = createBilliardBall(tex_pipeline, 9, [-0.52, 0.26])
     b9.setScale([0.52, 0.52, 0.52])
     balls.append(b9)
 
-    b10 = createBilliardBall(tex_pipeline, 10, [-3.5, 5.52])
+    b10 = createBilliardBall(tex_pipeline, 10, [-1.04, 0.52])
     b10.setScale([0.52, 0.52, 0.52])
     balls.append(b10)
 
-    b11 = createBilliardBall(tex_pipeline, 11, [-1.56, 2.78])
+    b11 = createBilliardBall(tex_pipeline, 11, [-1.56, 0.78])
     b11.setScale([0.52, 0.52, 0.52])
     balls.append(b11)
 
-    b12 = createBilliardBall(tex_pipeline, 12, [-4.08, -3.04])
+    b12 = createBilliardBall(tex_pipeline, 12, [-2.08, -1.04])
     b12.setScale([0.52, 0.52, 0.52])
     balls.append(b12)
 
-    b13 = createBilliardBall(tex_pipeline, 13, [6.08, 0.52])
+    b13 = createBilliardBall(tex_pipeline, 13, [-2.08, 0.52])
     b13.setScale([0.52, 0.52, 0.52])
     balls.append(b13)
 
-    b14 = createBilliardBall(tex_pipeline, 14, [7.56, -3.26])
+    b14 = createBilliardBall(tex_pipeline, 14, [-1.56, -0.26])
     b14.setScale([0.52, 0.52, 0.52])
     balls.append(b14)
 
-    b15 = createBilliardBall(tex_pipeline, 15, [-6.78, -4])
+    b15 = createBilliardBall(tex_pipeline, 15, [-2.08, 0])
     b15.setScale([0.52, 0.52, 0.52])
     balls.append(b15)
 

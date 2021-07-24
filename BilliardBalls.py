@@ -54,10 +54,12 @@ class Bball(GameObject):
 
 			if magnitud <= (self.radio + ball.radio):
 
-				if (ball == self.alreadyCollided and self.collideFrames > 1) or ball != self.alreadyCollided:
+				if (ball == self.alreadyCollided and self.collideFrames > 10) or ball != self.alreadyCollided:
 					self.bounce(ball)
 					self.alreadyCollided = ball
 					self.collideFrames = 0
+					ball.alreadyCollided = self
+					ball.collideFrames = 0
 
 			if magnitud <= (self.radio + ball.radio):	
 				d = (self.radio + ball.radio) - magnitud
@@ -69,8 +71,8 @@ class Bball(GameObject):
 				#self.last_speed[0] += magnitud * np.cos(angulo)
 				#self.last_speed[1] += magnitud * np.sin(angulo)
 
-				self.position[0] += d * np.cos(angulo)
-				self.position[1] += d * np.sin(angulo)
+				#self.position[0] += d * np.cos(angulo)
+				#self.position[1] += d * np.sin(angulo)
 				
 
 	def bounce(self, col):
