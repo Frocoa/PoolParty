@@ -58,16 +58,32 @@ class Cue(GameObject):
 				self.hitting = False
 				self.childs[0].position[1] = self.objective.radio * 2
 
-
-
 		if self.canHit:
 			GameObject.update_transform(self, delta, camera)
 			angulo = self.rotation[2] * self.DEG_TO_RAD
-			self.objective.canHit = True
-			self.objective.arrowRotation = angulo
-			self.objective.arrowSize = np.linalg.norm([self.childs[0].position[1] * np.sin(angulo), -self.childs[0].position[1] * np.cos(angulo)])
+			fuerza = np.linalg.norm([self.childs[0].position[1] * np.sin(angulo), -self.childs[0].position[1] * np.cos(angulo)])
 
-		else: self.objective.canHit = False
+			for ball in self.controller.ballList:
+				if ball != self.objective:
+					desplazamiento = [ball.position[0] - self.objective.position[0], ball.position[1] - self.objective.position[1]]
+
+					if desplazamiento[0] != 0:
+						angulo2 = np.arctan(desplazamiento[1] / desplazamiento[0])
+						if desplazamiento[0] > 0:
+							angulo2 = angulo2 + (180 * self.DEG_TO_RAD)
+					else: angulo2 = -np.pi / 2
+
+					ball.arrowRotation = angulo2 - (90 * self.DEG_TO_RAD)
+					ball.arrowSize = np.minimum(fuerza / (np.linalg.norm(desplazamiento) * 0.4), fuerza)
+
+				ball.canHit = True
+
+			self.objective.arrowRotation = angulo
+			self.objective.arrowSize = fuerza
+
+		else:
+		 for ball in self.controller.ballList:
+		 	ball.canHit = False
 
 	def draw(self, pipeline, transformName, camera, lights, parentTransform=tr.identity()):
 

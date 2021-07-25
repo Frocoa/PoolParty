@@ -25,5 +25,5 @@ class Trayectoria(GameObject):
 
 	def draw(self, pipeline, transformName, camera, lights, parentTransform=tr.identity()):
 
-		if self.ball.canHit == True:
+		if self.ball.canHit == True and self.ball.inGame == True:
 			GameObject.draw(self, pipeline, transformName, camera, lights, parentTransform)

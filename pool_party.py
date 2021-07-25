@@ -87,7 +87,7 @@ if __name__ == "__main__":
 
     light1 = Light(controller)
     lights.append(light1)
-    
+
     # Las pipelines que se dan aqui son solo las default, luego se pueden cambiar
     bolas = nd.createBalls(phongTex)
     cue = nd.createCue(phong, controller)
@@ -119,7 +119,7 @@ if __name__ == "__main__":
         glfw.set_window_title(window, title + str(perfMonitor))
 
         # Se cambian las luces entre spot y normales
-        """if (controller.is_3_pressed == True):
+        """if (controller.is_3_pre1ssed == True):
             phong = phongSpotPipeline
             phongTex = phongTexSpotPipeline
             cel = celSpotPipeline
