@@ -19,6 +19,7 @@ class Controller:
         self.is_right_pressed = False
         self.is_up_pressed = False
         self.is_down_pressed = False
+        self.is_space_pressed = False
         self.firstPerson = True
         self.theta = 0
         self.mousePos = (0, 0)
@@ -101,6 +102,13 @@ def on_key(self, window, key, scancode, action, mods):
             self.is_down_pressed = True
         elif action == glfw.RELEASE:
             self.is_down_pressed = False
+
+    # Caso de detectar la tecla [Space], actualiza estado de variable
+    if key == glfw.KEY_SPACE:
+        if action == glfw.PRESS:
+            self.is_space_pressed = True
+        elif action == glfw.RELEASE:
+            self.is_space_pressed = False
     
     # Caso de detectar la barra espaciadora, se cambia el metodo de dibujo
     if key == glfw.KEY_SPACE:

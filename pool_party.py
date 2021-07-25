@@ -89,14 +89,7 @@ if __name__ == "__main__":
     lights.append(light1)
 
     # Las pipelines que se dan aqui son solo las default, luego se pueden cambiar
-    bolas = nd.createBalls(phongTex)
-    cue = nd.createCue(phong, controller)
-    mesa = nd.createTable(phong, phongTex)
-
-    for bola in bolas.childs:
-        if not isinstance(bola, Bball):
-            continue
-        controller.ballList += [bola]
+    scene = nd.createScene(phong, phongTex, controller)
 
     # Application loop
     while not glfw.window_should_close(window):
@@ -137,10 +130,7 @@ if __name__ == "__main__":
             light.update(delta)
 
         ########          Dibujo          ########
-        bolas.update(delta, camera, lights)
-        #bolas.childs[0].update(delta, camera, lights)
-        mesa.update(delta, camera, lights)
-        cue.update(delta,camera,lights)
+        scene.update(delta, camera, lights)
 
         # Once the drawing is rendered, buffers are swap so an uncomplete drawing is never seen.
         glfw.swap_buffers(window)

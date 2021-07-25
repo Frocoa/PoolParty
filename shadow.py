@@ -25,5 +25,5 @@ class Shadow(GameObject):
 
 	def draw(self, pipeline, transformName, camera, lights, parentTransform=tr.identity()):
 
-		if self.ball.inGame == True:
+		if self.ball.inGame == True and self.ball.falling == False:
 			GameObject.draw(self, pipeline, transformName, camera, lights, parentTransform)

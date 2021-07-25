@@ -42,9 +42,18 @@ class Cue(GameObject):
 			if self.controller.is_up_pressed:
 				self.childs[0].translate([0, self.speed * 0.02, 0])
 
-			if self.controller.is_down_pressed and self.canHit:
+			if self.controller.is_down_pressed:
+				self.childs[0].translate([0, -self.speed * 0.02, 0])
+
+			if self.controller.is_space_pressed and self.canHit:
 				self.hitting = True
 				self.initialPos = self.childs[0].position[1]
+
+			if self.childs[0].position[1] <= self.objective.radio:
+				self.childs[0].position[1] = self.objective.radio
+
+			if self.childs[0].position[1] >= self.objective.radio * 30:
+				self.childs[0].position[1] = self.objective.radio * 30
 
 		elif self.canHit:
 			self.childs[0].translate([0, -self.speed * 0.8, 0])
@@ -74,7 +83,7 @@ class Cue(GameObject):
 					else: angulo2 = -np.pi / 2
 
 					ball.arrowRotation = angulo2 - (90 * self.DEG_TO_RAD)
-					ball.arrowSize = np.minimum(fuerza / (np.linalg.norm(desplazamiento) * 0.4), fuerza)
+					ball.arrowSize = np.minimum(fuerza / (np.linalg.norm(desplazamiento) * 0.8), fuerza)
 
 				ball.canHit = True
 
