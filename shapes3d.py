@@ -5,7 +5,6 @@ import math
 from OpenGL.GL import *
 import grafica.basic_shapes as bs
 import LightShaders as ls
-import curves as cv
 import grafica.gpu_shape as gs
 
 def createGPUShape(pipeline, shape):

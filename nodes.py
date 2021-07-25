@@ -5,7 +5,6 @@ from shadow import Shadow
 from trayectoria import Trayectoria
 from cue import Cue
 from plane3d import Plane3D
-from hudPlane import HudPlane
 from shapes3d import *
 
 

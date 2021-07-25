@@ -1,6 +1,5 @@
 import numpy as np
 import grafica.transformations as tr
-import curves as cv
 import math
 
 from operation import normalize

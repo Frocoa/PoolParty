@@ -1,4 +1,3 @@
-import curves as cv
 import math
 
 class Light():
