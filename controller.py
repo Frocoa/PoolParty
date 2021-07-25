@@ -22,7 +22,7 @@ class Controller:
         self.firstPerson = True
         self.theta = 0
         self.mousePos = (0, 0)
-        self.selectedBall = 0
+        self.selectedBall = 15
         self.ballList = []
 
 # Metodo para leer la posicion del mouse

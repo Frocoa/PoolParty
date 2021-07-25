@@ -80,16 +80,15 @@ if __name__ == "__main__":
 
     t0 = target_time = glfw.get_time()
     t_inicial = glfw.get_time()
-    loop_delta = 1./120
+    loop_delta = 1./60
 
     # Se instancian las luces que se van a utilizar
     lights = []
 
     light1 = Light(controller)
     lights.append(light1)
+    
     # Las pipelines que se dan aqui son solo las default, luego se pueden cambiar
-    #Maru = nd.createCharacter(celPipeline, celTexPipeline, controller)
-    #scene = nd.createScene(celPipeline, celTexPipeline)
     bolas = nd.createBalls(phongTex)
     cue = nd.createCue(phong, controller)
     mesa = nd.createTable(phong, phongTex)

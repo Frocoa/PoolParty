@@ -1,4 +1,5 @@
 import math
+import numpy as np
 from gameobject import GameObject, findGameObject
 
 #Un plano con texturas que genera un falso efecto de 3d siguiendo siempre a la camara
@@ -14,8 +15,14 @@ class Plane3D(GameObject):
 	def update_transform(self, delta, camera):
 		
 		# Mirar siempre a camara
-		angulo = 90 + math.atan((camera.eye[1] - self.position[1])/(camera.eye[0] - self.position[0]))* self.RAD_TO_DEG
+		if (camera.eye[0] - self.position[0]) != 0:
+			angulo = 90 + math.atan((camera.eye[1] - self.position[1])/(camera.eye[0] - self.position[0]))* self.RAD_TO_DEG
+		else:
+			angulo = 90 + (np.pi / 2) * self.RAD_TO_DEG
+
 		self.rotation = [self.rotation[0], self.rotation[1], angulo]
+
+
 
 		GameObject.update_transform(self, delta, camera)
 

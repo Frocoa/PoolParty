@@ -18,6 +18,10 @@ class Bball(GameObject):
 		self.collBalls = []
 		self.inGame = True
 
+		self.arrowRotation = 0
+		self.arrowSize = 0
+		self.canHit = False
+
 		self.last_speed = self.v0
 		self.last_time = 0
 

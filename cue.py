@@ -14,10 +14,12 @@ class Cue(GameObject):
 		self.canHit = True
 		self.initialPos = []
 
+
 	def hitBall(self, ball, strenght):
 		ball.last_speed = strenght[:2]
 
 	def update_transform(self, delta, camera):
+
 		while self.controller.ballList[self.controller.selectedBall].inGame == False:
 			self.controller.selectedBall = (self.controller.selectedBall+1) % 16
 
@@ -47,16 +49,25 @@ class Cue(GameObject):
 		elif self.canHit:
 			self.childs[0].translate([0, -self.speed * 0.8, 0])
 
+			angulo = self.rotation[2] * self.DEG_TO_RAD
+
 			if self.childs[0].position[1] <= self.objective.radio:
 				self.childs[0].position[1] = self.objective.radio
 
-				angulo = self.rotation[2] * self.DEG_TO_RAD
 				self.hitBall(self.objective, [self.initialPos * np.sin(angulo) * 6, -self.initialPos * np.cos(angulo) * 6])
 				self.hitting = False
 				self.childs[0].position[1] = self.objective.radio * 2
 
+
+
 		if self.canHit:
 			GameObject.update_transform(self, delta, camera)
+			angulo = self.rotation[2] * self.DEG_TO_RAD
+			self.objective.canHit = True
+			self.objective.arrowRotation = angulo
+			self.objective.arrowSize = np.linalg.norm([self.childs[0].position[1] * np.sin(angulo), -self.childs[0].position[1] * np.cos(angulo)])
+
+		else: self.objective.canHit = False
 
 	def draw(self, pipeline, transformName, camera, lights, parentTransform=tr.identity()):
 

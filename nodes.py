@@ -2,8 +2,10 @@ import meshes as mh
 from gameobject import GameObject
 from BilliardBalls import Bball
 from shadow import Shadow
+from trayectoria import Trayectoria
 from cue import Cue
 from plane3d import Plane3D
+from hudPlane import HudPlane
 from shapes3d import *
 
 
@@ -39,9 +41,12 @@ def createBilliardBall(tex_pipeline, number, posXY = [0, 0]):
 
 def createBalls(tex_pipeline):
     shadowPath = "assets/shadow.png"
+    arrowPath = "assets/arrow.png"
 
     balls = []
     shadows = []
+    arrows = []
+
     b1 = createBilliardBall(tex_pipeline, 1)
     b1.setScale([0.52, 0.52, 0.52])
     b1.setRotation([0, 25, 0])
@@ -123,7 +128,16 @@ def createBalls(tex_pipeline):
         shadow.setRotation([90, 0, 0])
         shadows.append(shadow)
 
+        arrow = Trayectoria("flecha", tex_pipeline)
+        arrow.ball = ball
+        arrow.setModel(createTextureGPUShape(createTextureNormalPlane(), tex_pipeline, arrowPath, False), True)
+        arrow.setRotation([90, 0, 0])
+        arrows.append(arrow)
+
+
+
     ballSet.addChilds(shadows)
+    ballSet.addChilds(arrows)
 
     return ballSet
 
@@ -143,6 +157,13 @@ def createCue(pipeline, controller):
     cueCenter.setRotation([0, 0, 0])
     
     return cueCenter
+
+def createHud(tex_pipeline):
+    barPath = "assets/bar1.png"
+
+    bar = HudPlane("barra", tex_pipeline)
+    bar.setModel(createTextureGPUShape(createTextureNormalPlane(), tex_pipeline, barPath, False), True)
+    return bar
 
 def createTable(pipeline, tex_pipeline):
 
