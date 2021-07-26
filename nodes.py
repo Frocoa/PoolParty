@@ -1,6 +1,7 @@
 import meshes as mh
 from gameobject import GameObject
 from BilliardBalls import Bball
+from bar import Bar
 from message import Message
 from shadow import Shadow
 from trayectoria import Trayectoria
@@ -154,15 +155,34 @@ def createCue(pipeline, controller):
     cueCenter = Cue("cue", pipeline, controller)
     cueCenter.addChilds([cueModel])
     cueCenter.setPosition([4, 0, 0])
-    cueCenter.setRotation([0, 0, 0])
+    cueCenter.setRotation([0, 0, -90])
     
     return cueCenter
 
-def createHud(tex_pipeline):
+def createBar(bar_tex, tex_pipeline, controller):
     barPath = "assets/bar1.png"
+    barPath2 = "assets/bar2.png"
+    letrasPath = "assets/unidadfuerza.png"
 
-    bar = HudPlane("barra", tex_pipeline)
-    bar.setModel(createTextureGPUShape(createTextureNormalPlane(), tex_pipeline, barPath, False), True)
+    outline = GameObject("borde", tex_pipeline)
+    outline.setModel(createTextureGPUShape(createTextureNormalPlane(), tex_pipeline, barPath2, False), True)
+
+    charge = Bar("carga", bar_tex, controller)
+    charge.setModel(createTextureGPUShape(createTextureNormalPlane(), bar_tex, barPath, False), True)
+
+    leyenda = GameObject("leyenda", tex_pipeline)
+    leyenda.setModel(createTextureGPUShape(createTextureNormalPlane(), tex_pipeline, letrasPath, False), True)
+    leyenda.setRotation([0, 0, 180])
+    leyenda.setPosition([0.13, 0, 0])
+    
+    bar = GameObject("barra", tex_pipeline)
+    bar.addChilds([outline, charge, leyenda])
+    bar.setScale([0.2, 0.2, 0.2])
+    bar.setRotation([90, 180, 0])
+    bar.setPosition([0.6, -0.4, 19])
+
+
+
     return bar
 
 def createTable(pipeline, tex_pipeline):
@@ -325,12 +345,13 @@ def createMessage(tex_pipeline, controller):
 
     return message
 
-def createScene(pipeline, tex_pipeline, controller):
+def createScene(pipeline, tex_pipeline, bar_tex, controller):
 
     bolas = createBalls(tex_pipeline, controller)
     cue = createCue(pipeline, controller)
     mesa = createTable(pipeline, tex_pipeline)
     mensaje = createMessage(tex_pipeline, controller)
+    barra = createBar(bar_tex, tex_pipeline, controller)
 
     for bola in bolas.childs:
         if not isinstance(bola, Bball):
@@ -338,6 +359,6 @@ def createScene(pipeline, tex_pipeline, controller):
         controller.ballList += [bola]
 
     scene = GameObject("scene", pipeline)
-    scene.addChilds([bolas, cue, mesa, mensaje])
+    scene.addChilds([bolas, cue, mesa, mensaje, barra])
 
     return scene

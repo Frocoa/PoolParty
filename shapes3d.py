@@ -31,8 +31,6 @@ def createTextureGPUShape(shape, pipeline, path, mipMap = True):
 
     return gpuShape
 
-
-
 def createNormalBall(N):
     vertices = []
     indices = []

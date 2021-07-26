@@ -52,6 +52,7 @@ if __name__ == "__main__":
     # Pipeline con shaders de iluminacion phongPipeline
     phongPipeline = ls.SimplePhongShaderProgram()
     phongTexPipeline = ls.SimpleTexturePhongShaderProgram()
+    barTexPipeline = ls.BarTexturePhongShaderProgram()
 
     # Setting up the clear screen color
     glClearColor(0, 84/255, 84/255, 106/255) # color cielo oscuro
@@ -84,7 +85,7 @@ if __name__ == "__main__":
     lights.append(light1)
 
     # Las pipelines que se dan aqui son solo las default, luego se pueden cambiar
-    scene = nd.createScene(phongPipeline, phongTexPipeline, controller)
+    scene = nd.createScene(phongPipeline, phongTexPipeline, barTexPipeline, controller)
 
     # Application loop
     while not glfw.window_should_close(window):

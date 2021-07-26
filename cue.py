@@ -71,6 +71,7 @@ class Cue(GameObject):
 			GameObject.update_transform(self, delta, camera)
 			angulo = self.rotation[2] * self.DEG_TO_RAD
 			fuerza = np.linalg.norm([self.childs[0].position[1] * np.sin(angulo), -self.childs[0].position[1] * np.cos(angulo)])
+			self.controller.fuerza = fuerza
 
 			for ball in self.controller.ballList:
 				if ball != self.objective:
@@ -83,7 +84,7 @@ class Cue(GameObject):
 					else: angulo2 = -np.pi / 2
 
 					ball.arrowRotation = angulo2 - (90 * self.DEG_TO_RAD)
-					ball.arrowSize = np.minimum(fuerza / (np.linalg.norm(desplazamiento) * 0.8), fuerza)
+					ball.arrowSize = np.minimum(fuerza / (np.linalg.norm(desplazamiento) * 0.25), fuerza)
 
 				ball.canHit = True
 
