@@ -141,7 +141,6 @@ def on_key(self, window, key, scancode, action, mods):
     # Caso de detectar el numero 4
     if key == glfw.KEY_4:
         if action == glfw.PRESS:
-            print("asd")
             self.followBall = not self.followBall
                 
     # Caso en que se cierra la ventana

@@ -44,8 +44,8 @@ class Bball(GameObject):
 		# Entrega el vector f con todas las funciones del sistema
 		# se multiplica por la velocidad porque, aunque no sea muy realista, ayuda a evitar
 		# que se terminen moviendo en un solo eje y asi queda mejor
-		f = np.array([self.gravedad * self.roce * np.sign(self.last_speed[0]),\
-					 self.gravedad * self.roce * np.sign(self.last_speed[1])]) 
+		f = np.array([self.gravedad * self.roce * self.last_speed[0],\
+					 self.gravedad * self.roce * self.last_speed[1]]) 
 		return f
 	
 	def f_caida(self, t, z):
@@ -148,8 +148,6 @@ class Bball(GameObject):
 
 			self.setPosition([self.fallingCoords[0], self.fallingCoords[1], self.position[2]])
 			self.translate([0, 0, self.last_speedF * 0.1 * delta])
-
-			print(self.last_speed)
 
 			if self.position[2] <= -0.56:
 				self.falling = False

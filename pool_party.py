@@ -68,7 +68,8 @@ if __name__ == "__main__":
     
     # Se instancia la camara
     camera = Camera(controller)
-    camera.setProjection(tr.perspective(60, float(width) / float(height), 0.1, 100))
+    camera.height = float(height)
+    camera.width = float(width)
 
     perfMonitor = pm.PerformanceMonitor(glfw.get_time(), 0.5)
 

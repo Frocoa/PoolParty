@@ -19,7 +19,7 @@ class Message(Plane3D):
 			self.setScale([10, 10, 10])
 
 		else:
-			self.setPosition([0, 5, 10])
+			self.setPosition([0, 8, 10])
 			self.setRotation([90, 180, 0])
 			self.setScale([5, 5, 5])
 

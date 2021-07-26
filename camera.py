@@ -19,6 +19,8 @@ class Camera:
         self.index = 1                            # Posicion de las curvas en las que se encuentra la camara
         self.speed = 0.15
         self.theta = np.pi/2
+        self.width = 0
+        self.height = 0
     
     # Añadir la matriz de proyeccion
     def setProjection(self, projection):
@@ -32,7 +34,6 @@ class Camera:
 
     # Actualizar la matriz de vista
     def update_view(self, delta):
-        print(self.controller.followBall)
         objetivo = self.controller.ballList[self.controller.selectedBall]
         for ball in self.controller.ballList:
             ball.shouldBeDrawn = True
@@ -42,12 +43,14 @@ class Camera:
             at_y = self.position[1] + np.sin(self.theta)
             self.eye = self.position
             self.setAt(np.array([at_x, at_y, 2]))
+            self.setProjection(tr.perspective(60, self.width / self.height, 0.1, 100))
             self.up = ([0, 0, 1])
 
         if self.controller.firstPerson == False:
             self.eye = np.array([0, 0, 20])
             self.setAt(np.array([0.1, 0, 0]))
             self.up = ([0, 1, 0])
+            self.setProjection(tr.ortho(-self.width/90, self.width/90, -self.height/90, self.height/90 ,0.1, 100))
 
         if self.controller.canHit == False and self.controller.followBall == True and objetivo.falling == False:
             objetivo.shouldBeDrawn = False
@@ -58,6 +61,7 @@ class Camera:
 
             self.setAt(self.eye + normalize(at))
             self.up = ([0, 0, 1])
+            self.setProjection(tr.perspective(60, self.width / self.height, 0.1, 100))
 
         # Se genera la matriz de vista
         viewMatrix = tr.lookAt(
