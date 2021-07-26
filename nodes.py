@@ -345,6 +345,62 @@ def createMessage(tex_pipeline, controller):
 
     return message
 
+def createAmbient(tex_pipeline, pipeline):
+    path1 = "assets/fondo1.png"
+    path2 = "assets/fondo2.png"
+    path3 = "assets/fondo3.png"
+    path4 = "assets/fondo4.png"
+    path5 = "assets/fondo5.png"
+    path6 = "assets/fondo6.png"
+
+    fondo1 = createTextureGPUShape(createTextureNormalPlane(), tex_pipeline, path1)
+    fondo2 = createTextureGPUShape(createTextureNormalPlane(), tex_pipeline, path2)
+    fondo3 = createTextureGPUShape(createTextureNormalPlane(), tex_pipeline, path3)
+    fondo4 = createTextureGPUShape(createTextureNormalPlane(), tex_pipeline, path4)
+    fondo5 = createTextureGPUShape(createTextureNormalPlane(), tex_pipeline, path5)
+    fondo6 = createTextureGPUShape(createTextureNormalPlane(), tex_pipeline, path6)
+
+    muro1 = GameObject("muro1", tex_pipeline)
+    muro1.setModel(fondo1)
+    muro1.setScale([100, 20, 70])
+    muro1.setPosition([0, 50, 0])
+
+    muro2 = GameObject("muro2", tex_pipeline)
+    muro2.setModel(fondo2)
+    muro2.setRotation([0, 0, -90])
+    muro2.setScale([100, 20, 70])
+    muro2.setPosition([50, 0, 0])
+
+    muro3 = GameObject("muro3", tex_pipeline)
+    muro3.setModel(fondo3)
+    muro3.setScale([100, 20, 70])
+    muro3.setRotation([0, 0, 180])
+    muro3.setPosition([0, -50, 0])
+
+    muro4 = GameObject("muro4", tex_pipeline)
+    muro4.setModel(fondo4)
+    muro4.setScale([100, 20, 70])
+    muro4.setRotation([0, 0, 90])
+    muro4.setPosition([-50, 0, 0])
+
+    techo = GameObject("techo", tex_pipeline)
+    techo.setModel(fondo5)
+    techo.setScale([120, 120, 120])
+    techo.setRotation([90, 0, 0])
+    techo.setPosition([0, 0, 25])
+
+    suelo = GameObject("suelo", tex_pipeline)
+    suelo.setModel(fondo6)
+    suelo.setScale([120, 1, 120])
+    suelo.setRotation([90, 0, 0])
+    suelo.setPosition([0, 0, -10])
+
+    murallas = GameObject("murallas", tex_pipeline)
+    murallas.addChilds([muro1, muro2, muro3, muro4, techo, suelo])
+    murallas.setPosition([0, 0, 5])
+
+    return murallas
+
 def createScene(pipeline, tex_pipeline, bar_tex, controller):
 
     bolas = createBalls(tex_pipeline, controller)
@@ -352,6 +408,7 @@ def createScene(pipeline, tex_pipeline, bar_tex, controller):
     mesa = createTable(pipeline, tex_pipeline)
     mensaje = createMessage(tex_pipeline, controller)
     barra = createBar(bar_tex, tex_pipeline, controller)
+    fondo = createAmbient(tex_pipeline, pipeline)
 
     for bola in bolas.childs:
         if not isinstance(bola, Bball):
@@ -359,6 +416,6 @@ def createScene(pipeline, tex_pipeline, bar_tex, controller):
         controller.ballList += [bola]
 
     scene = GameObject("scene", pipeline)
-    scene.addChilds([bolas, cue, mesa, mensaje, barra])
+    scene.addChilds([bolas, cue, mesa, mensaje, barra, fondo])
 
     return scene
