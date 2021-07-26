@@ -11,7 +11,6 @@ class Bball(GameObject):
 		self.RAD_TO_DEG = 57.2958
 		self.position = [posXY[0], posXY[1], 0]
 		self.indice = indice
-		self.roce = 0.01
 		self.gravedad = -9.8
 		self.v0 = [0, 0]
 		self.vCaida = [0]
@@ -22,9 +21,14 @@ class Bball(GameObject):
 		self.falling = False
 		self.controller = controller
 
+		self.Ks = [0.05, 0.05, 0.05]
+		self.shininess = 70;
+
 		self.shouldBeDrawn = True
 
-		self.c_r_bola = 0.95
+		self.c_r_bola = self.controller.restitucion
+		self.roce = self.controller.roce
+		
 		self.c_r_muralla = 0.99
 
 		self.arrowRotation = 0

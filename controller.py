@@ -29,6 +29,8 @@ class Controller:
         self.canHit = True
         self.followBall = False
         self.tambalear = False
+        self.roce = 0
+        self.restitucion = 0
 
 # Metodo para leer la posicion del mouse
 def cursor_pos_callback(self, window, x, y):

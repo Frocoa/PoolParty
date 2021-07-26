@@ -2,6 +2,7 @@ import glfw
 import math
 import time
 import OpenGL.GL.shaders
+import json
 import grafica.performance_monitor as pm
 from BilliardBalls import Bball
 import LightShaders as ls
@@ -35,15 +36,26 @@ if __name__ == "__main__":
 
     glfw.make_context_current(window)
 
+    #Opening JSON file
+    f = open('config.json',)
+
+    config = json.load(f)
+    Dict = config['values'][0]
+
+    f.close()
 
     controller = Controller()
+    controller.roce = float(Dict['roce'])
+
+    controller.restitucion = float(Dict['restitucion'])
+
     def on_key_wrapper(window, key, scancode, action, mods):
         on_key(controller, window, key, scancode, action, mods)
 
     def cursor_pos_callback_wrapper(window, x, y):
         cursor_pos_callback(controller, window, x, y)
 
-    # Se conecta la funcion de callback "cursos_pos_callback_wrapper" para ver la pos del mouse
+    # Se conecta la funcion de callback "cursor_pos_callback_wrapper" para ver la pos del mouse
     glfw.set_cursor_pos_callback(window, cursor_pos_callback_wrapper)
 
     # Connecting the callback function 'on_key_wrapper' to handle keyboard events
