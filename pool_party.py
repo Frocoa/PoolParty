@@ -55,7 +55,7 @@ if __name__ == "__main__":
     barTexPipeline = ls.BarTexturePhongShaderProgram()
 
     # Setting up the clear screen color
-    glClearColor(23/255, 144/255, 154/255, 0) # color cielo oscuro
+    glClearColor(10/255, 65/255, 68/255, 0) # color cielo oscuro
 
     # As we work in 3D, we need to check which part is in front,
     # and which one is at the back

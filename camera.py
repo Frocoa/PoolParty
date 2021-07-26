@@ -46,6 +46,18 @@ class Camera:
             self.setProjection(tr.perspective(60, self.width / self.height, 0.1, 100))
             self.up = ([0, 0, 1])
 
+            if self.position[0] >= 23:
+                self.position[0] = 23
+
+            if self.position[0] <= -23:
+                self.position[0] = -23
+
+            if self.position[1] >= 20:
+                self.position[1] = 20
+
+            if self.position[1] <= -20:
+                self.position[1] = -20
+
         if self.controller.firstPerson == False:
             self.eye = np.array([0, 0, 20])
             self.setAt(np.array([0.1, 0, 0]))

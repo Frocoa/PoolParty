@@ -179,7 +179,7 @@ def createBar(bar_tex, tex_pipeline, controller):
     bar.addChilds([outline, charge, leyenda])
     bar.setScale([3.8, 1, 3.8])
     bar.setRotation([90, 180, 0])
-    bar.setPosition([15, -7.1, 19])
+    bar.setPosition([13, -7.1, 19])
 
 
 

@@ -21,7 +21,7 @@ class Controller:
         self.is_down_pressed = False
         self.is_space_pressed = False
         self.indice_tecnica = 0
-        self.firstPerson = True
+        self.firstPerson = False
         self.mousePos = (0, 0)
         self.selectedBall = 15
         self.ballList = []
