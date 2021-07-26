@@ -11,7 +11,6 @@ class Cue(GameObject):
 		self.controller = controller # Controlador
 		self.speed = 2
 		self.hitting = False
-		self.canHit = True
 		self.initialPos = []
 
 
@@ -24,11 +23,11 @@ class Cue(GameObject):
 			self.controller.selectedBall = (self.controller.selectedBall+1) % 16
 
 		self.objective = self.controller.ballList[self.controller.selectedBall]
-		self.canHit = True
+		self.controller.canHit = True
 
 		for ball in self.controller.ballList:
 			if np.linalg.norm(ball.last_speed) != 0:
-				self.canHit = False
+				self.controller.canHit = False
 
 		if self.hitting == False:
 			self.position = self.objective.position
@@ -45,7 +44,7 @@ class Cue(GameObject):
 			if self.controller.is_down_pressed:
 				self.childs[0].translate([0, -self.speed * 0.02, 0])
 
-			if self.controller.is_space_pressed and self.canHit:
+			if self.controller.is_space_pressed and self.controller.canHit:
 				self.hitting = True
 				self.initialPos = self.childs[0].position[1]
 
@@ -55,7 +54,7 @@ class Cue(GameObject):
 			if self.childs[0].position[1] >= self.objective.radio * 30:
 				self.childs[0].position[1] = self.objective.radio * 30
 
-		elif self.canHit:
+		elif self.controller.canHit:
 			self.childs[0].translate([0, -self.speed * 0.8, 0])
 
 			angulo = self.rotation[2] * self.DEG_TO_RAD
@@ -67,7 +66,7 @@ class Cue(GameObject):
 				self.hitting = False
 				self.childs[0].position[1] = self.objective.radio * 2
 
-		if self.canHit:
+		if self.controller.canHit:
 			GameObject.update_transform(self, delta, camera)
 			angulo = self.rotation[2] * self.DEG_TO_RAD
 			fuerza = np.linalg.norm([self.childs[0].position[1] * np.sin(angulo), -self.childs[0].position[1] * np.cos(angulo)])
@@ -86,16 +85,14 @@ class Cue(GameObject):
 					ball.arrowRotation = angulo2 - (90 * self.DEG_TO_RAD)
 					ball.arrowSize = np.minimum(fuerza / (np.linalg.norm(desplazamiento) * 0.25), fuerza)
 
-				ball.canHit = True
-
 			self.objective.arrowRotation = angulo
 			self.objective.arrowSize = fuerza
 
 		else:
 		 for ball in self.controller.ballList:
-		 	ball.canHit = False
+		 	ball.controller.canHit = False
 
 	def draw(self, pipeline, transformName, camera, lights, parentTransform=tr.identity()):
 
-		if self.canHit == True:
+		if self.controller.canHit == True:
 			GameObject.draw(self, pipeline, transformName, camera, lights, parentTransform)

@@ -9,15 +9,14 @@ class Camera:
     
     def __init__(self, controller):
         self.controller = controller
-        self.at = np.array([0.0, 0.0, 2])     # donde mira la camara
-        self.position = np.array([0.1, -10.0, 2])     # posicion de la camara
-        self.eye = self.position                 # vector eye
-        self.up = np.array([0, 0, 1])            # vector up
-        self.viewMatrix = None                   # Matriz de vista
-        self.projection = None                   # Matriz de proyeccion
-        self.N = 1200                            # Cantidad de puntos en las curvas
-        self.index = 1                           # Posicion de las curvas en las que se encuentra la camara
-        self.objective = None                    # A que objeto mantiene siempre en la mira
+        self.at = np.array([0.0, 0.0, 2])         # donde mira la camara
+        self.position = np.array([0.1, -10.0, 2]) # posicion de la camara
+        self.eye = self.position                  # vector eye
+        self.up = np.array([0, 0, 1])             # vector up
+        self.viewMatrix = None                    # Matriz de vista
+        self.projection = None                    # Matriz de proyeccion
+        self.N = 1200                             # Cantidad de puntos en las curvas
+        self.index = 1                            # Posicion de las curvas en las que se encuentra la camara
         self.speed = 0.15
         self.theta = np.pi/2
     
@@ -33,6 +32,11 @@ class Camera:
 
     # Actualizar la matriz de vista
     def update_view(self, delta):
+        print(self.controller.followBall)
+        objetivo = self.controller.ballList[self.controller.selectedBall]
+        for ball in self.controller.ballList:
+            ball.shouldBeDrawn = True
+
         if self.controller.firstPerson == True:
             at_x = self.position[0] + np.cos(self.theta)
             at_y = self.position[1] + np.sin(self.theta)
@@ -45,7 +49,16 @@ class Camera:
             self.setAt(np.array([0.1, 0, 0]))
             self.up = ([0, 1, 0])
 
-        
+        if self.controller.canHit == False and self.controller.followBall == True and objetivo.falling == False:
+            objetivo.shouldBeDrawn = False
+            self.eye = np.array(objetivo.position)
+            if np.linalg.norm(objetivo.last_speed) != 0:
+                at = np.array([objetivo.last_speed[0], objetivo.last_speed[1], 0])
+            else: at = ([1, 1, 0])
+
+            self.setAt(self.eye + normalize(at))
+            self.up = ([0, 0, 1])
+
         # Se genera la matriz de vista
         viewMatrix = tr.lookAt(
             self.eye,

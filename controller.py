@@ -26,6 +26,8 @@ class Controller:
         self.selectedBall = 15
         self.ballList = []
         self.fuerza = 0
+        self.canHit = True
+        self.followBall = False
 
 # Metodo para leer la posicion del mouse
 def cursor_pos_callback(self, window, x, y):
@@ -135,6 +137,12 @@ def on_key(self, window, key, scancode, action, mods):
     if key == glfw.KEY_3:
         if action == glfw.PRESS:
             self.selectedBall = (self.selectedBall + 1) % 16
+
+    # Caso de detectar el numero 4
+    if key == glfw.KEY_4:
+        if action == glfw.PRESS:
+            print("asd")
+            self.followBall = not self.followBall
                 
     # Caso en que se cierra la ventana
     if key == glfw.KEY_ESCAPE:

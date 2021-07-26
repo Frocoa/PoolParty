@@ -1,6 +1,7 @@
 from gameobject import GameObject
 import numpy as np
 import ode_resolver as edo
+import grafica.transformations as tr
 
 class Bball(GameObject):
 
@@ -20,6 +21,8 @@ class Bball(GameObject):
 		self.inGame = True
 		self.falling = False
 		self.controller = controller
+
+		self.shouldBeDrawn = True
 
 		self.c_r_bola = 0.95
 		self.c_r_muralla = 0.99
@@ -41,8 +44,8 @@ class Bball(GameObject):
 		# Entrega el vector f con todas las funciones del sistema
 		# se multiplica por la velocidad porque, aunque no sea muy realista, ayuda a evitar
 		# que se terminen moviendo en un solo eje y asi queda mejor
-		f = np.array([self.gravedad * self.roce * self.last_speed[0],\
-					 self.gravedad * self.roce * self.last_speed[1]]) 
+		f = np.array([self.gravedad * self.roce * np.sign(self.last_speed[0]),\
+					 self.gravedad * self.roce * np.sign(self.last_speed[1])]) 
 		return f
 	
 	def f_caida(self, t, z):
@@ -111,6 +114,7 @@ class Bball(GameObject):
 			self.ballCollide()
 			self.wallCollide()
 			self.holeCollide()
+			self.canHit = self.controller.canHit
 
 			tecnica = self.controller.indice_tecnica
 
@@ -145,6 +149,8 @@ class Bball(GameObject):
 			self.setPosition([self.fallingCoords[0], self.fallingCoords[1], self.position[2]])
 			self.translate([0, 0, self.last_speedF * 0.1 * delta])
 
+			print(self.last_speed)
+
 			if self.position[2] <= -0.56:
 				self.falling = False
 				self.inGame = False
@@ -155,5 +161,10 @@ class Bball(GameObject):
 			self.last_speed = ([0, 0, 0])
 
 		GameObject.update_transform(self, delta, camera)
+
+	def draw(self, pipeline, transformName, camera, lights, parentTransform=tr.identity()):
+
+		if self.shouldBeDrawn == True:
+			GameObject.draw(self, pipeline, transformName, camera, lights, parentTransform)
 
 
