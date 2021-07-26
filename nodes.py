@@ -167,7 +167,7 @@ def createBar(bar_tex, tex_pipeline, controller):
     outline = GameObject("borde", tex_pipeline)
     outline.setModel(createTextureGPUShape(createTextureNormalPlane(), tex_pipeline, barPath2, False), True)
 
-    charge = Bar("carga", bar_tex, controller)
+    charge = Bar("carga", bar_tex, controller, outline)
     charge.setModel(createTextureGPUShape(createTextureNormalPlane(), bar_tex, barPath, False), True)
 
     leyenda = GameObject("leyenda", tex_pipeline)

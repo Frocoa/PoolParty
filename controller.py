@@ -28,6 +28,7 @@ class Controller:
         self.fuerza = 0
         self.canHit = True
         self.followBall = False
+        self.tambalear = False
 
 # Metodo para leer la posicion del mouse
 def cursor_pos_callback(self, window, x, y):
@@ -110,6 +111,7 @@ def on_key(self, window, key, scancode, action, mods):
     if key == glfw.KEY_SPACE:
         if action == glfw.PRESS:
             self.is_space_pressed = True
+            self.tambalear = not self.tambalear
         elif action == glfw.RELEASE:
             self.is_space_pressed = False
     

@@ -55,7 +55,7 @@ class Cue(GameObject):
 				self.childs[0].position[1] = self.objective.radio * 30
 
 		elif self.controller.canHit:
-			self.childs[0].translate([0, -self.speed * 0.8, 0])
+			self.childs[0].translate([0, -self.speed * 0.4 , 0])
 
 			angulo = self.rotation[2] * self.DEG_TO_RAD
 
