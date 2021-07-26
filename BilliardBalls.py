@@ -154,7 +154,7 @@ class Bball(GameObject):
 				self.inGame = False
 
 		elif self.inGame == False:
-			self.setPosition([2 + self.indice*0.53, 6.2, 0.52])
+			self.setPosition([2 + self.indice*0.53, 6.5, 0.52])
 			self.setRotation([0, 0, 90])
 			self.last_speed = ([0, 0, 0])
 
