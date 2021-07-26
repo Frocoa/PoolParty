@@ -1,6 +1,7 @@
 import meshes as mh
 from gameobject import GameObject
 from BilliardBalls import Bball
+from message import Message
 from shadow import Shadow
 from trayectoria import Trayectoria
 from cue import Cue
@@ -24,7 +25,7 @@ def create3dPlane(pipeline, nombre, texture_name):
 
     return plane
 
-def createBilliardBall(tex_pipeline, number, posXY = [0, 0]):
+def createBilliardBall(tex_pipeline, number, posXY, controller):
     number = str(number)
     ballShape = createNormalBall(20)
     ballModel = GameObject("bola"+ number + "model", tex_pipeline)
@@ -32,13 +33,13 @@ def createBilliardBall(tex_pipeline, number, posXY = [0, 0]):
     path = "assets/" + "b" + number + ".png"
     ballModel.setModel(createTextureGPUShape(ballShape, tex_pipeline, path), True)
 
-    ball = Bball("bola" + number, tex_pipeline, posXY, int(number))
+    ball = Bball("bola" + number, tex_pipeline, posXY, int(number), controller)
     ball.addChilds([ballModel])
 
     return ball
 
 
-def createBalls(tex_pipeline):
+def createBalls(tex_pipeline, controller):
     shadowPath = "assets/shadow.png"
     arrowPath = "assets/arrow.png"
 
@@ -46,68 +47,68 @@ def createBalls(tex_pipeline):
     shadows = []
     arrows = []
 
-    b1 = createBilliardBall(tex_pipeline, 1)
+    b1 = createBilliardBall(tex_pipeline, 1, [0, 0], controller)
     b1.setScale([0.52, 0.52, 0.52])
     b1.setRotation([0, 25, 0])
     balls.append(b1)
 
-    b2 = createBilliardBall(tex_pipeline, 2, [-0.52, -0.26])
+    b2 = createBilliardBall(tex_pipeline, 2, [-0.52, -0.26], controller)
     b2.setScale([0.52, 0.52, 0.52])
     balls.append(b2)
 
-    b3 = createBilliardBall(tex_pipeline, 3, [-1.04, -0.52])
+    b3 = createBilliardBall(tex_pipeline, 3, [-1.04, -0.52], controller)
     b3.setScale([0.52, 0.52, 0.52])
     balls.append(b3)
 
-    b4 = createBilliardBall(tex_pipeline, 4, [-1.56, -0.78])
+    b4 = createBilliardBall(tex_pipeline, 4, [-1.56, -0.78], controller)
     b4.setScale([0.52, 0.52, 0.52])
     balls.append(b4)
 
-    b5 = createBilliardBall(tex_pipeline, 5, [-2.08, 1.04])
+    b5 = createBilliardBall(tex_pipeline, 5, [-2.08, 1.04], controller)
     b5.setScale([0.52, 0.52, 0.52])
     balls.append(b5)
 
-    b6 = createBilliardBall(tex_pipeline, 6, [-2.08, -0.52])
+    b6 = createBilliardBall(tex_pipeline, 6, [-2.08, -0.52], controller)
     b6.setScale([0.52, 0.52, 0.52])
     balls.append(b6)
 
-    b7 = createBilliardBall(tex_pipeline, 7, [-1.56, 0.26])
+    b7 = createBilliardBall(tex_pipeline, 7, [-1.56, 0.26], controller)
     b7.setScale([0.52, 0.52, 0.52])
     balls.append(b7)
 
-    b8 = createBilliardBall(tex_pipeline, 8, [-1.04, 0])
+    b8 = createBilliardBall(tex_pipeline, 8, [-1.04, 0], controller)
     b8.setScale([0.52, 0.52, 0.52])
     balls.append(b8)
 
-    b9 = createBilliardBall(tex_pipeline, 9, [-0.52, 0.26])
+    b9 = createBilliardBall(tex_pipeline, 9, [-0.52, 0.26], controller)
     b9.setScale([0.52, 0.52, 0.52])
     balls.append(b9)
 
-    b10 = createBilliardBall(tex_pipeline, 10, [-1.04, 0.52])
+    b10 = createBilliardBall(tex_pipeline, 10, [-1.04, 0.52], controller)
     b10.setScale([0.52, 0.52, 0.52])
     balls.append(b10)
 
-    b11 = createBilliardBall(tex_pipeline, 11, [-1.56, 0.78])
+    b11 = createBilliardBall(tex_pipeline, 11, [-1.56, 0.78], controller)
     b11.setScale([0.52, 0.52, 0.52])
     balls.append(b11)
 
-    b12 = createBilliardBall(tex_pipeline, 12, [-2.08, -1.04])
+    b12 = createBilliardBall(tex_pipeline, 12, [-2.08, -1.04], controller)
     b12.setScale([0.52, 0.52, 0.52])
     balls.append(b12)
 
-    b13 = createBilliardBall(tex_pipeline, 13, [-2.08, 0.52])
+    b13 = createBilliardBall(tex_pipeline, 13, [-2.08, 0.52], controller)
     b13.setScale([0.52, 0.52, 0.52])
     balls.append(b13)
 
-    b14 = createBilliardBall(tex_pipeline, 14, [-1.56, -0.26])
+    b14 = createBilliardBall(tex_pipeline, 14, [-1.56, -0.26], controller)
     b14.setScale([0.52, 0.52, 0.52])
     balls.append(b14)
 
-    b15 = createBilliardBall(tex_pipeline, 15, [-2.08, 0])
+    b15 = createBilliardBall(tex_pipeline, 15, [-2.08, 0], controller)
     b15.setScale([0.52, 0.52, 0.52])
     balls.append(b15)
 
-    bcue = createBilliardBall(tex_pipeline, 0, [4, 0])
+    bcue = createBilliardBall(tex_pipeline, 0, [4, 0], controller)
     bcue.setScale([0.52, 0.52, 0.52])
     balls.append(bcue)
 
@@ -146,7 +147,7 @@ def createCue(pipeline, controller):
 
     cueModel = GameObject("cue model", pipeline)
     cueModel.setModel(cueShape)
-    cueModel.setRotation([90, 0, 0])
+    cueModel.setRotation([98, 0, 0])
     cueModel.setScale([0.6, 0.6, 10])
     cueModel.setPosition([0, 1, 0])
 
@@ -306,11 +307,30 @@ def createTable(pipeline, tex_pipeline):
     table.addChilds([amortiguadores, holes, sides, legs, lona])
     return table
 
+def createMessage(tex_pipeline, controller):
+    pathRK4 = "assets/rk4.png"
+    pathEuler = "assets/euler.png"
+    pathEulerMejorado = "assets/eulermejorado.png"
+    pathEulerModificado = "assets/eulermodificado.png"
+
+    rk4 = createTextureGPUShape(createTextureNormalPlane(), tex_pipeline, pathRK4)
+    euler = createTextureGPUShape(createTextureNormalPlane(), tex_pipeline, pathEuler)
+    euler_mejorado = createTextureGPUShape(createTextureNormalPlane(), tex_pipeline, pathEulerMejorado)
+    euler_modificado = createTextureGPUShape(createTextureNormalPlane(), tex_pipeline, pathEulerModificado)
+
+    message = Message("mensaje", tex_pipeline, controller)
+    message.setModel(rk4, True)
+    message.addModels([rk4, euler, euler_mejorado, euler_modificado])
+    message.setScale([10, 10, 10])
+
+    return message
+
 def createScene(pipeline, tex_pipeline, controller):
 
-    bolas = createBalls(tex_pipeline)
+    bolas = createBalls(tex_pipeline, controller)
     cue = createCue(pipeline, controller)
     mesa = createTable(pipeline, tex_pipeline)
+    mensaje = createMessage(tex_pipeline, controller)
 
     for bola in bolas.childs:
         if not isinstance(bola, Bball):
@@ -318,6 +338,6 @@ def createScene(pipeline, tex_pipeline, controller):
         controller.ballList += [bola]
 
     scene = GameObject("scene", pipeline)
-    scene.addChilds([bolas, cue, mesa])
+    scene.addChilds([bolas, cue, mesa, mensaje])
 
     return scene

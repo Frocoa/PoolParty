@@ -17,6 +17,8 @@ class Plane3D(GameObject):
 		# Mirar siempre a camara
 		if (camera.eye[0] - self.position[0]) != 0:
 			angulo = 90 + math.atan((camera.eye[1] - self.position[1])/(camera.eye[0] - self.position[0]))* self.RAD_TO_DEG
+			if (camera.eye[0] - self.position[0] < 0):
+				angulo = angulo + 180
 		else:
 			angulo = 90 + (np.pi / 2) * self.RAD_TO_DEG
 

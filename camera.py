@@ -10,7 +10,7 @@ class Camera:
     def __init__(self, controller):
         self.controller = controller
         self.at = np.array([0.0, 0.0, 2])     # donde mira la camara
-        self.position = np.array([-4.96, -5.0, 2])     # posicion de la camara
+        self.position = np.array([0.1, -10.0, 2])     # posicion de la camara
         self.eye = self.position                 # vector eye
         self.up = np.array([0, 0, 1])            # vector up
         self.viewMatrix = None                   # Matriz de vista
@@ -19,7 +19,7 @@ class Camera:
         self.index = 1                           # Posicion de las curvas en las que se encuentra la camara
         self.objective = None                    # A que objeto mantiene siempre en la mira
         self.speed = 0.15
-        self.theta = 0
+        self.theta = np.pi/2
     
     # Añadir la matriz de proyeccion
     def setProjection(self, projection):
@@ -41,7 +41,7 @@ class Camera:
             self.up = ([0, 0, 1])
 
         if self.controller.firstPerson == False:
-            self.eye = np.array([0, 0, 15])
+            self.eye = np.array([0, 0, 20])
             self.setAt(np.array([0.1, 0, 0]))
             self.up = ([0, 1, 0])
 

@@ -4,7 +4,7 @@ import ode_resolver as edo
 
 class Bball(GameObject):
 
-	def __init__(self, nombre, pipeline, posXY, indice):
+	def __init__(self, nombre, pipeline, posXY, indice, controller):
 		super(Bball, self).__init__(nombre, pipeline)
 
 		self.RAD_TO_DEG = 57.2958
@@ -19,6 +19,7 @@ class Bball(GameObject):
 		self.collBalls = []
 		self.inGame = True
 		self.falling = False
+		self.controller = controller
 
 		self.c_r_bola = 0.95
 		self.c_r_muralla = 0.99
@@ -53,11 +54,11 @@ class Bball(GameObject):
 
 	def holeCollide(self):
 		holePos = [[0, -6.1], [0, 6.1], [12.5, 6.1], [-12.5, 6.1], [12.5, -6.1], [-12.5, -6.1]]
-		for hole in holePos:
-			magnitud = np.linalg.norm([hole[0] - self.position[0], hole[1] - self.position[1]])
-			if magnitud <= (self.radio + 0.6):
+		for coords in holePos:
+			magnitud = np.linalg.norm([coords[0] - self.position[0], coords[1] - self.position[1]])
+			if magnitud <= (0.75): #ligeramente mas grande que el agujero real
 				self.falling = True
-				self.fallingCoords = hole
+				self.fallingCoords = coords
 
 	def wallCollide(self):
 		if abs(self.position[0]) > 12.43:
@@ -73,7 +74,7 @@ class Bball(GameObject):
 			if ball.inGame == True:
 				magnitud = np.linalg.norm([ball.position[0] - self.position[0], ball.position[1] - self.position[1]])
 
-				if magnitud <= (self.radio + ball.radio):
+				if magnitud < (self.radio + ball.radio):
 
 					if (ball == self.alreadyCollided and self.collideFrames > 10) or ball != self.alreadyCollided:
 						self.bounce(ball)
@@ -111,11 +112,22 @@ class Bball(GameObject):
 			self.wallCollide()
 			self.holeCollide()
 
+			tecnica = self.controller.indice_tecnica
+
 			self.collideFrames += 1
 
 			time = self.last_time + self.h * delta
 			self.last_time = time
-			next_value = edo.RK4_step(self.f_roce, self.h, time, self.last_speed)
+
+			if tecnica == 0:
+				next_value = edo.RK4_step(self.f_roce, self.h, time, self.last_speed)
+			elif tecnica == 1:
+				next_value = edo.euler_step(self.f_roce, self.h, time, self.last_speed)
+			elif tecnica == 2:
+				next_value = edo.euler_mejorado_step(self.f_roce, self.h, time, self.last_speed)
+			elif tecnica == 3:
+				next_value = edo.euler_modificado_step(self.f_roce, self.h, time, self.last_speed)
+
 			self.last_speed = next_value
 
 			if np.abs(np.linalg.norm(self.last_speed)) <= 0.3:

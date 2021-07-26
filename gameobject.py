@@ -8,6 +8,7 @@ class GameObject:
 
 	def __init__(self, nombre, pipeline):
 		self.DEG_TO_RAD = 0.0174533
+		self.RAD_TO_DEG = 57.2957795
 
 		self.nombre = nombre # nombre del objeto por el cual puede ser buscado
 		self.position = [0, 0, 0] # posicion del objeto (x, y, z)

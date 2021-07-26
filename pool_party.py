@@ -49,14 +49,10 @@ if __name__ == "__main__":
     # Connecting the callback function 'on_key_wrapper' to handle keyboard events
     glfw.set_key_callback(window, on_key_wrapper)
 
-    # Pipeline con shaders con multiples fuentes de luz
+    # Pipeline con shaders de iluminacion phongPipeline
     phongPipeline = ls.SimplePhongShaderProgram()
-
     phongTexPipeline = ls.SimpleTexturePhongShaderProgram()
 
-    # Se decide que tipo de luces se van a usar
-    phong = phongPipeline
-    phongTex = phongTexPipeline
     # Setting up the clear screen color
     glClearColor(0, 84/255, 84/255, 106/255) # color cielo oscuro
 
@@ -68,13 +64,13 @@ if __name__ == "__main__":
     # Activando transparencias
     glEnable(GL_BLEND)
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-
     
     # Se instancia la camara
     camera = Camera(controller)
     camera.setProjection(tr.perspective(60, float(width) / float(height), 0.1, 100))
 
     perfMonitor = pm.PerformanceMonitor(glfw.get_time(), 0.5)
+
     # glfw will swap buffers as soon as possible
     glfw.swap_interval(0)
 
@@ -82,14 +78,13 @@ if __name__ == "__main__":
     t_inicial = glfw.get_time()
     loop_delta = 1./60
 
-    # Se instancian las luces que se van a utilizar
+    # Se instancian las luces que se van a utilizar (es una lista porque se podrian poner varias luces)
     lights = []
-
     light1 = Light(controller)
     lights.append(light1)
 
     # Las pipelines que se dan aqui son solo las default, luego se pueden cambiar
-    scene = nd.createScene(phong, phongTex, controller)
+    scene = nd.createScene(phongPipeline, phongTexPipeline, controller)
 
     # Application loop
     while not glfw.window_should_close(window):
@@ -111,19 +106,6 @@ if __name__ == "__main__":
         perfMonitor.update(glfw.get_time())
         glfw.set_window_title(window, title + str(perfMonitor))
 
-        # Se cambian las luces entre spot y normales
-        """if (controller.is_3_pre1ssed == True):
-            phong = phongSpotPipeline
-            phongTex = phongTexSpotPipeline
-            cel = celSpotPipeline
-            celTex = celTexSpotPipeline
-        else:
-            phong = phongPipeline
-            phongTex = phongTexPipeline  """
-
-        #else:
-        #    Maru.changeTreesPipeline(cel, celTex)
-        #    scene.changeTreesPipeline(cel, celTex)
 
         ########          Luz         #######
         for light in lights:

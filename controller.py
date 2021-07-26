@@ -20,8 +20,8 @@ class Controller:
         self.is_up_pressed = False
         self.is_down_pressed = False
         self.is_space_pressed = False
+        self.indice_tecnica = 0
         self.firstPerson = True
-        self.theta = 0
         self.mousePos = (0, 0)
         self.selectedBall = 15
         self.ballList = []
@@ -123,7 +123,12 @@ def on_key(self, window, key, scancode, action, mods):
     # Caso de detectar el numero 1
     if key == glfw.KEY_1:
         if action == glfw.PRESS:
-            self.firstPerson = not self.firstPerson  
+            self.firstPerson = not self.firstPerson
+
+    # Caso de detectar el numero 2
+    if key == glfw.KEY_2:
+        if action == glfw.PRESS:
+            self.indice_tecnica = (self.indice_tecnica + 1) % 4
 
     # Caso de detectar el numero 3
     if key == glfw.KEY_3:
