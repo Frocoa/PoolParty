@@ -8,10 +8,11 @@ class Shadow(GameObject):
 
 		self.RAD_TO_DEG = 57.295779
 
-		self.ball = None
+		self.ball = None # bola a la cual esta asociado
 
 	def update_transform(self, delta, camera):
 
+		### Se mueve dependiendo de su posicion relativa a la luz en el centro
 		if self.ball.inGame == True:
 			self.setPosition([1.05 * self.ball.position[0] , 1.05 * self.ball.position[1] , -0.259])
 
@@ -23,6 +24,7 @@ class Shadow(GameObject):
 			self.setRotation([90, angulo * self.RAD_TO_DEG, 0])
 			GameObject.update_transform(self, delta, camera)
 
+	# Solo se dibuja si la pelota esta en juego y no cae
 	def draw(self, pipeline, transformName, camera, lights, parentTransform=tr.identity()):
 
 		if self.ball.inGame == True and self.ball.falling == False:

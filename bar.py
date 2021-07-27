@@ -8,13 +8,14 @@ class Bar(Plane3D):
 	def __init__(self, nombre, pipeline, controller, outline):
 		super(Bar, self).__init__(nombre, pipeline)
 
-		self.texturas = [] # Las 2 texturas de la barra
-		self.charge = 70.0 # Que tan cargada esta la barra entre 0 y 100
+		self.texturas = [] 			 # Las 2 texturas de la barra
+		self.charge = 70.0 			 # Que tan cargada esta la barra entre 0 y 100
 		self.controller = controller # referencia al controlador
-		self.theta = 1 # velocidad del efecto de shearing
-		self.outline = outline # referencia al borde
-		self.v0 = 0 # velocidad inicial del efecto
+		self.theta = 1 				 # velocidad del efecto de shearing
+		self.outline = outline 		 # referencia al borde
+		self.v0 = 0 				 # velocidad inicial del efecto
 
+	# Movimiento de tambaleo cuando el taco esta golpeando
 	def tambalear(self):
 		self.currentFrames += 1
 		self.transform = tr.matmul([
@@ -46,6 +47,7 @@ class Bar(Plane3D):
 		if self.controller.tambalear == True and self.controller.canHit == True:
 			self.tambalear()
 			self.theta += 8 * self.DEG_TO_RAD
+			
 		else:
 			self.controller.tambalear = False
 			self.currentFrames = 0

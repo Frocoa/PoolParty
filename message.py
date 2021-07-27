@@ -1,11 +1,14 @@
 from plane3d import Plane3D
 
+""" Texto flotante que sigue al jugador y puede cambiar de textura"""
 class Message(Plane3D):
 	def __init__(self, nombre, pipeline, controller):
 		super(Message, self).__init__(nombre, pipeline)
-		self.modelos = []
-		self.controller = controller
 
+		self.modelos = []				# texturas posibles
+		self.controller = controller	# referencia al controlador
+
+	# Se añaden modelos
 	def addModels(self, modelos):
 		self.modelos += modelos
 
@@ -13,6 +16,7 @@ class Message(Plane3D):
 		modeloActual = self.modelos[self.controller.indice_tecnica]
 		self.setModel(modeloActual)
 
+		## Aparece en un lugar diferente dependiendo de la vista elegida
 		if self.controller.firstPerson == True:
 			self.setPosition([0, 0, 4])
 			self.rotation[0] , self.rotation[1] = 0, 0

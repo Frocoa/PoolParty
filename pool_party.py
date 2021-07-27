@@ -14,8 +14,11 @@ from camera import Camera
 from gameobject import GameObject
 from shapes3d import *
 from OpenGL.GL import *
+import sys
 
-"""Joaquín Uribe """
+archivo = sys.argv[1]
+
+"""Joaquín Uribe"""
 
 if __name__ == "__main__":
 
@@ -37,7 +40,7 @@ if __name__ == "__main__":
     glfw.make_context_current(window)
 
     #Opening JSON file
-    f = open('config.json',)
+    f = open(archivo,)
 
     config = json.load(f)
     Dict = config['values'][0]

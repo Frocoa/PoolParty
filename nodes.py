@@ -26,6 +26,7 @@ def create3dPlane(pipeline, nombre, texture_name):
 
     return plane
 
+# crea una bola de billar
 def createBilliardBall(tex_pipeline, number, posXY, controller):
     number = str(number)
     ballShape = createNormalBall(20)
@@ -39,7 +40,7 @@ def createBilliardBall(tex_pipeline, number, posXY, controller):
 
     return ball
 
-
+# crea el conjunto de bolas de billar, sus sombras y sus vectores
 def createBalls(tex_pipeline, controller):
     shadowPath = "assets/shadow.png"
     arrowPath = "assets/arrow.png"
@@ -142,6 +143,7 @@ def createBalls(tex_pipeline, controller):
 
     return ballSet
 
+# crea el taco
 def createCue(pipeline, controller):
     cueMesh = mh.createCueMesh()
     cueShape = createGPUShape(pipeline, mh.toShape(cueMesh, color=(255/255, 128/255, 0.0)))
@@ -159,6 +161,7 @@ def createCue(pipeline, controller):
     
     return cueCenter
 
+# crea la barra de cargado
 def createBar(bar_tex, tex_pipeline, controller):
     barPath = "assets/bar1.png"
     barPath2 = "assets/bar2.png"
@@ -185,6 +188,7 @@ def createBar(bar_tex, tex_pipeline, controller):
 
     return bar
 
+# crea la mesa
 def createTable(pipeline, tex_pipeline):
 
     holePath = "assets/shadow.png"
@@ -327,6 +331,7 @@ def createTable(pipeline, tex_pipeline):
     table.addChilds([amortiguadores, holes, sides, legs, lona])
     return table
 
+# crea el texto volador
 def createMessage(tex_pipeline, controller):
     pathRK4 = "assets/rk4.png"
     pathEuler = "assets/euler.png"
@@ -345,6 +350,7 @@ def createMessage(tex_pipeline, controller):
 
     return message
 
+# crea la skybox
 def createAmbient(tex_pipeline, pipeline):
     path1 = "assets/fondo1.png"
     path2 = "assets/fondo2.png"
@@ -401,6 +407,7 @@ def createAmbient(tex_pipeline, pipeline):
 
     return murallas
 
+# crea la escena completa
 def createScene(pipeline, tex_pipeline, bar_tex, controller):
 
     bolas = createBalls(tex_pipeline, controller)

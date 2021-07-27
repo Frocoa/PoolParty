@@ -26,18 +26,20 @@ class Camera:
     def setProjection(self, projection):
         self.projection = projection
 
-    def setObjective(self, GameObject):
-        self.objective = GameObject
-
+    # Añadir vector at
     def setAt(self, at):
         self.at = at    
 
     # Actualizar la matriz de vista
     def update_view(self, delta):
+
+        # Se permite que dibujen todas las bolas otra vez
         objetivo = self.controller.ballList[self.controller.selectedBall]
         for ball in self.controller.ballList:
             ball.shouldBeDrawn = True
 
+
+        ### Modo en primera persona
         if self.controller.firstPerson == True:
             at_x = self.position[0] + np.cos(self.theta)
             at_y = self.position[1] + np.sin(self.theta)
@@ -46,6 +48,7 @@ class Camera:
             self.setProjection(tr.perspective(60, self.width / self.height, 0.1, 100))
             self.up = ([0, 0, 1])
 
+            ## Limite de movimiento
             if self.position[0] >= 23:
                 self.position[0] = 23
 
@@ -58,20 +61,24 @@ class Camera:
             if self.position[1] <= -20:
                 self.position[1] = -20
 
+        ### Vista aerea
         if self.controller.firstPerson == False:
             self.eye = np.array([0, 0, 20])
             self.setAt(np.array([0.1, 0, 0]))
             self.up = ([0, 1, 0])
             self.setProjection(tr.ortho(-self.width/90, self.width/90, -self.height/90, self.height/90 ,0.1, 100))
 
+        ### Perspectiva de la pelota
         if self.controller.canHit == False and self.controller.followBall == True and objetivo.falling == False:
-            objetivo.shouldBeDrawn = False
-            self.eye = np.array(objetivo.position)
+            objetivo.shouldBeDrawn = False # No se dibuja la bola objetivo para que se pueda ver
+            self.eye = np.array(objetivo.position) # La camara esta donde este la bola
+            
             if np.linalg.norm(objetivo.last_speed) != 0:
                 at = np.array([objetivo.last_speed[0], objetivo.last_speed[1], 0])
+
             else: at = ([1, 1, 0])
 
-            self.setAt(self.eye + normalize(at))
+            self.setAt(self.eye + normalize(at)) # Se mira en direccion a donde va la bola
             self.up = ([0, 0, 1])
             self.setProjection(tr.perspective(60, self.width / self.height, 0.1, 100))
 

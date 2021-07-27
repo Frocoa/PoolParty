@@ -381,6 +381,7 @@ class BarTexturePhongShaderProgram:
 
                 float carga = charge;
 
+                // solo se muestra lo que esta por debajo de carga
                 if( gl_FragCoord.y > carga){
                     discard;
                 }

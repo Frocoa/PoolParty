@@ -1,4 +1,5 @@
 import numpy as np
+""" operaciones utiles"""
 
 def normalize(v):
 	norm = np.linalg.norm(v)

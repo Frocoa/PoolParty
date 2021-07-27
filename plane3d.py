@@ -2,7 +2,7 @@ import math
 import numpy as np
 from gameobject import GameObject, findGameObject
 
-#Un plano con texturas que genera un falso efecto de 3d siguiendo siempre a la camara
+"""Un plano con texturas que genera un falso efecto de 3d siguiendo siempre a la camara """
 class Plane3D(GameObject):
 
 	def __init__(self, nombre, pipeline):

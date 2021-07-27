@@ -8,29 +8,28 @@ class Controller:
         self.showAxis = True
 
         # Variables para controlar la camara
-        self.is_w_pressed = False
-        self.is_s_pressed = False
-        self.is_a_pressed = False
-        self.is_d_pressed = False
-        self.is_q_pressed = False
-        self.is_e_pressed = False
-        self.is_tab_pressed = False
-        self.is_left_pressed = False
-        self.is_right_pressed = False
-        self.is_up_pressed = False
-        self.is_down_pressed = False
-        self.is_space_pressed = False
-        self.indice_tecnica = 0
-        self.firstPerson = False
-        self.mousePos = (0, 0)
-        self.selectedBall = 15
-        self.ballList = []
-        self.fuerza = 0
-        self.canHit = True
-        self.followBall = False
-        self.tambalear = False
-        self.roce = 0
-        self.restitucion = 0
+        self.is_w_pressed = False       # tecla w
+        self.is_s_pressed = False       # tecla s
+        self.is_a_pressed = False       # tecla a
+        self.is_d_pressed = False       # tecla d
+        self.is_q_pressed = False       # tecla q
+        self.is_e_pressed = False       # tecla e 
+        self.is_left_pressed = False    # tecla izq
+        self.is_right_pressed = False   # tecla der
+        self.is_up_pressed = False      # tecla up
+        self.is_down_pressed = False    # tecla down
+        self.is_space_pressed = False   # espacio
+
+        self.indice_tecnica = 0         # indice de tecnica de EDO
+        self.firstPerson = False        # primera persona       
+        self.selectedBall = 15          # indice de bola objetivo
+        self.ballList = []              # lista con todas las bolas
+        self.fuerza = 0                 # fuerza del taco
+        self.canHit = True              # el taco puede golpear
+        self.followBall = False         # se sigue a la bola golpeada
+        self.tambalear = False          # la barra deberia tambalear
+        self.roce = 0                   # coef roce
+        self.restitucion = 0            # coef restitucion
 
 # Metodo para leer la posicion del mouse
 def cursor_pos_callback(self, window, x, y):
@@ -121,11 +120,6 @@ def on_key(self, window, key, scancode, action, mods):
     if key == glfw.KEY_SPACE:
         if action == glfw.PRESS:
             self.fillPolygon = not self.fillPolygon
-
-    # Caso de detectar el tab se cambian los pipelines
-    if key == glfw.KEY_TAB:
-        if action == glfw.PRESS:
-            self.is_tab_pressed = not self.is_tab_pressed
 
     # Caso de detectar el numero 1
     if key == glfw.KEY_1:
