@@ -4,7 +4,6 @@ import time
 import OpenGL.GL.shaders
 import json
 import grafica.performance_monitor as pm
-from BilliardBalls import Bball
 import LightShaders as ls
 import grafica.transformations as tr
 import nodes as nd

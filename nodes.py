@@ -1,11 +1,11 @@
 import meshes as mh
 from gameobject import GameObject
-from BilliardBalls import Bball
-from bar import Bar
-from message import Message
-from shadow import Shadow
-from trayectoria import Trayectoria
-from cue import Cue
+from componentes.BilliardBalls import Bball
+from componentes.bar import Bar
+from componentes.message import Message
+from componentes.shadow import Shadow
+from componentes.trayectoria import Trayectoria
+from componentes.cue import Cue
 from plane3d import Plane3D
 from shapes3d import *
 
